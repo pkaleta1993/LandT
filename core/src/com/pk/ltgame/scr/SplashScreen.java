@@ -3,26 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pk.ltgame.splash;
+package com.pk.ltgame.scr;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.pk.ltgame.LandTerrorGame;
 
 /**
  *
  * @author pkale
  */
-public class SplashScr extends AbstractScreen {
+public class SplashScreen extends AbstractScreen {
     private Texture splashImg;
     private Texture splashBGImg;
     //public static final String splashImgDir = "splash.jpg";
    // public static final String splashBGImgDir = "splashBG.jpg";
 
-    public SplashScr(LandTerrorGame game) {
+    public SplashScreen(final LandTerrorGame game) {
      super(game);
      init();
+     Timer.schedule(new Task(){
+     @Override
+     public void run() {
+         game.setScreen(new GameScreen(game));
+     }
+     }, 2);
  }   
  
     private void init(){

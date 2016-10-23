@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.pk.ltgame.splash.SplashScr;
+import com.pk.ltgame.scr.SplashScreen;
 
 public class LandTerrorGame extends Game {
         public final static String GAME_NAME = "Land Terror";
@@ -17,7 +17,7 @@ public class LandTerrorGame extends Game {
 	
 	@Override
 	public void create () {
-	this.setScreen(new SplashScr(this));
+	this.setScreen(new SplashScreen(this));
 	}
 
 	
