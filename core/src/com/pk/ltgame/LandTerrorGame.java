@@ -9,8 +9,8 @@ import com.pk.ltgame.splash.SplashScr;
 
 public class LandTerrorGame extends Game {
         public final static String GAME_NAME = "Land Terror";
-        public final static int WIDTH = 600;
-        public final static int HEIGHT = 500;
+        public final static int WIDTH = 1024;
+        public final static int HEIGHT = 768;
         
         private boolean paused;
 	

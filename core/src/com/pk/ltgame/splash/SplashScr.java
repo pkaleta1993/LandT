@@ -5,6 +5,8 @@
  */
 package com.pk.ltgame.splash;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.pk.ltgame.LandTerrorGame;
 
@@ -14,21 +16,29 @@ import com.pk.ltgame.LandTerrorGame;
  */
 public class SplashScr extends AbstractScreen {
     private Texture splashImg;
-    
+    private Texture splashBGImg;
+    //public static final String splashImgDir = "splash.jpg";
+   // public static final String splashBGImgDir = "splashBG.jpg";
+
     public SplashScr(LandTerrorGame game) {
      super(game);
      init();
  }   
  
     private void init(){
-        splashImg = new Texture("badlogic.jpg");
+        AssetManager manager = new AssetManager();
+
+     
+       splashImg = new Texture("splash.png");
+       splashBGImg = new Texture("splashBG.png");
     }
     @Override
     public void render(float delta){
         super.render(delta);
         
         spriteBatch.begin();
-        spriteBatch.draw(splashImg, 0, 0);
+        spriteBatch.draw(splashBGImg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        spriteBatch.draw(splashImg, Gdx.graphics.getWidth()/2-265, Gdx.graphics.getHeight()/2-52);
         spriteBatch.end();
     }
 }
