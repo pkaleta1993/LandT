@@ -23,7 +23,7 @@ public abstract class AbstractScreen implements Screen {
 
 protected LandTerrorGame game;
 protected Stage stage;
-private OrthographicCamera camera;
+OrthographicCamera camera;
 
 protected SpriteBatch spriteBatch;
 
@@ -38,7 +38,7 @@ public AbstractScreen(LandTerrorGame game) {
 private void createCamera() {
     camera = new OrthographicCamera();
     camera.setToOrtho(false, LandTerrorGame.WIDTH, LandTerrorGame.HEIGHT);
-    camera.update();
+   //camera.update();
 }
 @Override
 public void render(float delta) {

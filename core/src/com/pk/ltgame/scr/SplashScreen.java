@@ -30,7 +30,7 @@ public class SplashScreen extends AbstractScreen {
      public void run() {
          game.setScreen(new GameScreen(game));
      }
-     }, 2);
+     }, 1);
  }   
  
     private void init(){
