@@ -5,15 +5,19 @@
  */
 package com.pk.ltgame.scr;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.pk.ltgame.LandTerrorGame;
 import com.pk.ltgame.map.MapLoader;
+import com.pk.ltgame.map.TiledMapStage;
 /**
  *
  * @author pkale
  */
 public class GameScreen extends AbstractScreen {
     private MapLoader mapLoad;
-    
+    private TiledMapStage tiledMapS;
+    protected Stage stageTwo;
     public GameScreen(LandTerrorGame game) {
         super(game);
         init();
@@ -24,8 +28,18 @@ public class GameScreen extends AbstractScreen {
     }
     private void initMap(){
       mapLoad = new MapLoader();
-      stage.addActor(mapLoad);
-      mapLoad.createMap();
+     //tiledMapS = new TiledMapStage(mapLoad.map);
+     stage.addActor(mapLoad);
+    mapLoad.createMap();
+      /*Działa, ale źle
+    stage = new TiledMapStage(mapLoad.map);
+    */
+    stage = new TiledMapStage(mapLoad.map);
+    //stage.addActor(tiledMapS);
+      //Stage stageTwo = new TiledMapStage(mapLoad.map);
+
+     
+     Gdx.input.setInputProcessor(stage);
       
     }
     @Override
@@ -35,9 +49,11 @@ public class GameScreen extends AbstractScreen {
        update();
        spriteBatch.begin();
        stage.draw();
+       stage.getViewport().setCamera(camera);
        spriteBatch.end();
     }
     private void update(){
+        
         stage.act();
     }
 }

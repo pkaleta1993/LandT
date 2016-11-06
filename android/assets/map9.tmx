@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="hexagonal" renderorder="left-down" width="10" height="10" tilewidth="198" tileheight="172" hexsidelength="110" staggeraxis="x" staggerindex="odd" nextobjectid="1">
+<map version="1.0" orientation="hexagonal" renderorder="left-up" width="10" height="10" tilewidth="278" tileheight="172" hexsidelength="0" staggeraxis="y" staggerindex="odd" nextobjectid="1">
  <tileset firstgid="1" name="hex_green" tilewidth="198" tileheight="172" tilecount="1" columns="1">
-  <image source="../../../Land Terror/android/assets/hex_green.png" width="198" height="172"/>
+  <image source="hex_green.png" width="198" height="172"/>
  </tileset>
  <layer name="Warstwa Kafelków 1" width="10" height="10">
   <data encoding="base64">
