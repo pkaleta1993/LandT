@@ -25,6 +25,7 @@ public class TiledMapClickListener  extends ClickListener {
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
+        
         if(actor!=null && actor.getCell() != null){
           
                  //   System.out.println(this.actor.getWidth());

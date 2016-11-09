@@ -8,6 +8,7 @@ package com.pk.ltgame.scr;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.pk.ltgame.LandTerrorGame;
+import com.pk.ltgame.inputs.GameInput;
 import com.pk.ltgame.map.MapLoader;
 import com.pk.ltgame.map.TiledMapStage;
 /**
@@ -37,9 +38,10 @@ public class GameScreen extends AbstractScreen {
     stage = new TiledMapStage(mapLoad.map);
     //stage.addActor(tiledMapS);
       //Stage stageTwo = new TiledMapStage(mapLoad.map);
-
-     
-     Gdx.input.setInputProcessor(stage);
+    GameInput inputProcessor = new GameInput();
+    Gdx.input.setInputProcessor(inputProcessor);
+    //  stage.getViewport().setCamera(camera);
+    // Gdx.input.setInputProcessor(stage);
       
     }
     @Override
