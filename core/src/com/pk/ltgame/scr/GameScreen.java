@@ -51,7 +51,9 @@ public class GameScreen extends AbstractScreen {
        update();
        spriteBatch.begin();
        stage.draw();
+        
        stage.getViewport().setCamera(camera);
+        
        spriteBatch.end();
     }
     private void update(){

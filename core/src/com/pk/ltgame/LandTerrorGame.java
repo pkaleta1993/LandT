@@ -10,7 +10,7 @@ import com.pk.ltgame.scr.SplashScreen;
 public class LandTerrorGame extends Game {
         public final static String GAME_NAME = "Land Terror";
         public final static int WIDTH = 1024;
-        public final static int HEIGHT = 768;
+        public final static int HEIGHT = 602;
         
         private boolean paused;
 	

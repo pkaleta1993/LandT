@@ -13,8 +13,9 @@ import com.pk.ltgame.map.TiledMapStage;
  */
 public class InputStream {
     final TiledMapStage tiledMS = new TiledMapStage();
-    public void postMouseClick(int x, int y)
+    public void postMouseClick(double x, double y)
     {
-        tiledMS.pixToHex(x, y);
+        
+        tiledMS.mouseClickToHex(x, y);
     }
 }

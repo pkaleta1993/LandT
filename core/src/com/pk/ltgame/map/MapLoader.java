@@ -36,7 +36,8 @@ public class MapLoader extends Image{
         public void createMap(){
            
         map = new TmxMapLoader().load("newm3.tmx");
-       
+        
+     
        TiledMapTileLayer layers = (TiledMapTileLayer)map.getLayers().get(0);
        //System.out.printf(layers.get);
         Cell cell = layers.getCell(0,0);
@@ -44,7 +45,8 @@ public class MapLoader extends Image{
        renderer = new HexagonalTiledMapRenderer(map);
        // renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-	camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        
+	camera.setToOrtho(true, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         
 
 	camera.update();
