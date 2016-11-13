@@ -21,7 +21,6 @@ import static com.pk.ltgame.hex.Layout.hexToPixel;
 import static com.pk.ltgame.hex.Layout.pixelToHex;
 import static com.pk.ltgame.hex.OffsetCoord.qoffsetToCube;
 import static com.pk.ltgame.hex.OffsetCoord.roffsetToCube;
-//import com.pk.ltgame.hex.Tests;
 
 
 
@@ -57,7 +56,9 @@ public class TiledMapStage extends Stage {
     public void mouseClickToHex( double x, double y){
          p = getMouseClickPoint(x, y);
          // Point layoutSize = new Point(86,99);
-        Point layoutSize = new Point(99,99);
+       // Point layoutSize = new Point(99,99);
+       // Point layoutOrigin = new Point(99,172);
+       Point layoutSize = new Point(99,99);
         Point layoutOrigin = new Point(99,172);
           Layout gameLayout = new Layout(Layout.flat, layoutSize, layoutOrigin);
          pCube =   pixelToHex(gameLayout, p);
@@ -72,7 +73,9 @@ public class TiledMapStage extends Stage {
         cubeArr = new Hex[tiledLayer.getWidth()][tiledLayer.getHeight()];
          hexPixArr = new Point[tiledLayer.getWidth()][tiledLayer.getHeight()];
          
-         Point layoutSize = new Point(99,99);
+         //Point layoutSize = new Point(99,99);
+       // Point layoutOrigin = new Point(99,172);
+        Point layoutSize = new Point(99,99);
         Point layoutOrigin = new Point(99,172);
         Layout gameLayout = new Layout(Layout.flat, layoutSize, layoutOrigin);
         for (int x = 0; x < tiledLayer.getWidth(); x++) {
@@ -81,20 +84,24 @@ public class TiledMapStage extends Stage {
                 TiledMapActor actor = new TiledMapActor(tiledMap, tiledLayer, cell);
                 OffsetCoord coords = new OffsetCoord(x, y);
                
-                if(x==0 || x%2 == 0)
+                if( x%2 == 0)
                 {
                
-        cubeArr[x][y] = qoffsetToCube(OffsetCoord.EVEN, coords);
+                  cubeArr[x][y] = qoffsetToCube(OffsetCoord.EVEN, coords);
+                  // cubeArr[x][y] = roffsetToCube(OffsetCoord.EVEN, coords);
                   //  cubeArr[x][y] = roffsetToCube(OffsetCoord.EVEN, coords);
                      System.out.println("Hex w Arr - Q: " + cubeArr[x][y].q + " R : " + cubeArr[x][y].r  + " S: " + cubeArr[x][y].s);
                 hexPixArr[x][y] = hexToPixel(gameLayout, cubeArr[x][y]);
+               // System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
                         //pixelToHex(gameLayout,hexToPixel(gameLayout, hex));
                 
                 } else {
                cubeArr[x][y] =  qoffsetToCube(OffsetCoord.ODD, coords); 
                //cubeArr[x][y] =  roffsetToCube(OffsetCoord.ODD, coords); 
-               System.out.println("Hex w Arr - Q: " + cubeArr[x][y].q + " R : " + cubeArr[x][y].r  + " S: " + cubeArr[x][y].s);
+               //cubeArr[x][y] =  roffsetToCube(OffsetCoord.ODD, coords); 
+               System.out.println("ODD Hex w Arr - Q: " + cubeArr[x][y].q + " R : " + cubeArr[x][y].r  + " S: " + cubeArr[x][y].s);
                 hexPixArr[x][y] = hexToPixel(gameLayout, cubeArr[x][y]);
+               //  System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
                 }
                 
                 addActor(actor);

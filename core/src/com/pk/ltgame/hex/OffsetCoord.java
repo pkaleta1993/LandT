@@ -5,6 +5,8 @@
  */
 package com.pk.ltgame.hex;
 
+
+
 /**
  *
  * @author pkale
@@ -33,6 +35,10 @@ public class OffsetCoord
     {
         int q = h.col;
         int r = h.row - (int)((h.col + offset * (h.col & 1)) / 2);
+    //  int r = (int)(h.row - ((h.col + offset * (h.col & 1)) / 2));
+      // int hba = h.col&1;
+      // System.out.println("Offset = " + offset + " oraz h.col&1 = " + hba);
+      // int r = h.row - (int)(( h.col + offset * (abs(h.col)%2)) / 2);
         int s = -q - r;
         //System.out.println("Q: " + q +" R: " + r + " S: " +s);
         return new Hex(q, r, s);

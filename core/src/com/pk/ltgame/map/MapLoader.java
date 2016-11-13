@@ -35,7 +35,7 @@ public class MapLoader extends Image{
         
         public void createMap(){
            
-        map = new TmxMapLoader().load("newm3.tmx");
+        map = new TmxMapLoader().load("newm4.tmx");
         
      
        TiledMapTileLayer layers = (TiledMapTileLayer)map.getLayers().get(0);

@@ -45,6 +45,11 @@ public class FractionalHex
             {
                 s = -q - r;
             }
+        //dodatkowe przeliczenie dla EVEN i ODD niżej
+        if(q%2 == 1) {
+            r++;
+            s--;
+        } 
         return new Hex(q, r, s);
     }
 
