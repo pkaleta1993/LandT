@@ -1,0 +1,33 @@
+
+menuskin.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gold
+  rotate: false
+  xy: 1, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+goldclicked
+  rotate: false
+  xy: 1, 1
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+container_blue
+  rotate: false
+  xy: 53, 6
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1
+container_gold
+  rotate: false
+  xy: 96, 6
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1

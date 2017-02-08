@@ -40,6 +40,7 @@ public class OffsetCoord
       // System.out.println("Offset = " + offset + " oraz h.col&1 = " + hba);
       // int r = h.row - (int)(( h.col + offset * (abs(h.col)%2)) / 2);
         int s = -q - r;
+        
         //System.out.println("Q: " + q +" R: " + r + " S: " +s);
         return new Hex(q, r, s);
     }

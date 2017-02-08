@@ -11,6 +11,7 @@ import com.pk.ltgame.LandTerrorGame;
 import com.pk.ltgame.inputs.GameInput;
 import com.pk.ltgame.map.MapLoader;
 import com.pk.ltgame.map.TiledMapStage;
+import com.pk.ltgame.players.HumanPlayer;
 /**
  *
  * @author pkale
@@ -18,16 +19,20 @@ import com.pk.ltgame.map.TiledMapStage;
 public class GameScreen extends AbstractScreen {
     private MapLoader mapLoad;
     private TiledMapStage tiledMapS;
+    private HumanPlayer playerH;
     protected Stage stageTwo;
     public GameScreen(LandTerrorGame game) {
         super(game);
         init();
     }
+
+ 
     
     private void init(){
      initMap();
     }
     private void initMap(){
+       playerH = new HumanPlayer("red", 100, 10, 0, 1);
       mapLoad = new MapLoader();
      //tiledMapS = new TiledMapStage(mapLoad.map);
      stage.addActor(mapLoad);

@@ -21,7 +21,7 @@ import static com.pk.ltgame.hex.Layout.hexToPixel;
 import static com.pk.ltgame.hex.Layout.pixelToHex;
 import static com.pk.ltgame.hex.OffsetCoord.qoffsetToCube;
 import static com.pk.ltgame.hex.OffsetCoord.roffsetToCube;
-
+import static com.pk.ltgame.hex.OffsetCoord.qoffsetFromCube;
 
 
 /**
@@ -34,8 +34,10 @@ public class TiledMapStage extends Stage {
     private FractionalHex pCube;
     private Point p;
     private Hex pHex;
+    private Hex hexNB;
     private Hex[][] cubeArr;
     private Point[][] hexPixArr;
+    private OffsetCoord clickOffset;
     public TiledMapStage(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
         
@@ -54,17 +56,26 @@ public class TiledMapStage extends Stage {
     }
 
     public void mouseClickToHex( double x, double y){
-         p = getMouseClickPoint(x, y);
-         // Point layoutSize = new Point(86,99);
-       // Point layoutSize = new Point(99,99);
-       // Point layoutOrigin = new Point(99,172);
+         p = getMouseClickPoint(x, y); 
        Point layoutSize = new Point(99,99);
         Point layoutOrigin = new Point(99,172);
           Layout gameLayout = new Layout(Layout.flat, layoutSize, layoutOrigin);
          pCube =   pixelToHex(gameLayout, p);
          pHex = hexRound(pCube);
+         if(pHex.q %2 == 0){
+             clickOffset = qoffsetFromCube(OffsetCoord.EVEN,pHex);
+         } else {
+         clickOffset = qoffsetFromCube(OffsetCoord.EVEN,pHex); //ODD nie zadziała, bo libGDX trzyma dane o komórkach jako koordynaty row-col liczone od 0
+         }
          System.out.println("A klikniecie na hex to hex(frac): " + pCube.q + "," + pCube.r + ","+pCube.s );
          System.out.println("A klikniecie na hex to hex: " + pHex.q + "," + pHex.r + ","+pHex.s );
+         System.out.println("Zaś na offset to x: " + clickOffset.col + " oraz y: " + clickOffset.row);
+         
+       for(int i=0; i<6;i++)
+         {
+             hexNB = Hex.neighbor(pHex, i);
+         System.out.println("Sasiedni hex nr " + i + " Q: " + hexNB.q + " R: " + hexNB.r + " S: " +hexNB.s);
+         }
     }
     
     private void createActorsForLayer(TiledMapTileLayer tiledLayer) {
