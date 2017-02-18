@@ -14,11 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class HumanPlayer extends Actor {
     
-    String color;
-    int gold;
-    int food;
-    int techpoints;
-    int turn;
+    public String color;
+    public int gold;
+    public int food;
+    public int techpoints;
+    public int turn;
     public HumanPlayer(String color, int gold, int food, int techpoints, int turn) {
         
         this.color = color;

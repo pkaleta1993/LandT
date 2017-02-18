@@ -6,12 +6,21 @@
 package com.pk.ltgame.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.pk.ltgame.hex.Point;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pk.ltgame.hex.Hex;
 import com.pk.ltgame.hex.Layout;
 import com.pk.ltgame.hex.OffsetCoord;
@@ -22,6 +31,12 @@ import static com.pk.ltgame.hex.Layout.pixelToHex;
 import static com.pk.ltgame.hex.OffsetCoord.qoffsetToCube;
 import static com.pk.ltgame.hex.OffsetCoord.roffsetToCube;
 import static com.pk.ltgame.hex.OffsetCoord.qoffsetFromCube;
+import com.pk.ltgame.hud.GameHUD;
+import com.pk.ltgame.inputs.GameInput;
+import com.pk.ltgame.objects.TileBuildings;
+import com.pk.ltgame.objects.Units;
+import com.pk.ltgame.players.HumanPlayer;
+import java.util.ArrayList;
 
 
 /**
@@ -32,15 +47,73 @@ public class TiledMapStage extends Stage {
     
     private TiledMap tiledMap;
     private FractionalHex pCube;
+    private GameHUD gameHUDInputProcessor;
     private Point p;
     private Hex pHex;
     private Hex hexNB;
-    private Hex[][] cubeArr;
-    private Point[][] hexPixArr;
+    private TileBuildings buildings;
+    private Units units;
+    private Hex[][] cubeArr; 
+     private TextureAtlas atlas;
+     protected Skin skin;
+    private ImageButton button;
+    private Stage stage;
+    //private Stage stageInputProcessor;
+    public Point[][] hexPixArr;
     private OffsetCoord clickOffset;
-    public TiledMapStage(TiledMap tiledMap) {
+    ArrayList<TileBuildings> buildingsList = new ArrayList<TileBuildings>();
+    ArrayList<Units> unitsList = new ArrayList<Units>();
+    private final ArrayList<HumanPlayer> playersList = new ArrayList<HumanPlayer>();
+    public TiledMapStage(TiledMap tiledMap, ArrayList<HumanPlayer> playersList, GameHUD gameHUD) {
+        stage = new Stage(); 
+       
+      //  stageInputProcessor = GameHUD.getStage();
         this.tiledMap = tiledMap;
+        this.gameHUDInputProcessor = gameHUD;
+       //  Gdx.input.setInputProcessor(stage);
+         buildings = new TileBuildings(0,3,-3, playersList.get(0).color);
         
+//Gdx.input.setInputProcessor(this.stage);
+         buildingsList.add(buildings);
+         buildings = new TileBuildings(3,0,-3, playersList.get(0).color);
+       buildingsList.add(buildings);
+       units = new Units(0,3,-3, playersList.get(0).color);
+       unitsList.add(units); 
+        atlas = new TextureAtlas("units.atlas");
+        skin = new Skin(Gdx.files.internal("units.json"), atlas);
+
+       button = new ImageButton(skin);
+       button.setSize(Gdx.graphics.getWidth()/20f, Gdx.graphics.getWidth()/20f);
+   // button.setPosition(20, 90);
+   /* button.addListener( new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            System.out.println("Kliknietooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        };
+    });*/
+    button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
+                  //   System.out.println("Kliknietooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");  
+                     Gdx.app.log("unitButton", "kliknieto");
+// game.setScreen(new MenuScreen(game));
+            }
+        });
+   
+        stage.addActor(button);
+        // Gdx.input.setInputProcessor(stage);
+       /* InputMultiplexer obsługuje kilka inputProcessorów, a dokładniej rzecz ujmując - sam działa jako inputProcessor,
+        tyle że rozsyła wszystkie akcje do potomnych procesów.
+        */ 
+        GameInput inputProcessor = new GameInput();
+        //  inputProcessor inputStage = new inputProcessor();
+         InputMultiplexer inputMux = new InputMultiplexer();
+         inputMux.addProcessor(stage);
+        inputMux.addProcessor(gameHUDInputProcessor.stage);
+       inputMux.addProcessor(inputProcessor);
+       
+         Gdx.input.setInputProcessor(inputMux);
         for (MapLayer layer : tiledMap.getLayers()) {
             TiledMapTileLayer tiledLayer = (TiledMapTileLayer)layer;
             createActorsForLayer(tiledLayer);
@@ -103,7 +176,7 @@ public class TiledMapStage extends Stage {
                   //  cubeArr[x][y] = roffsetToCube(OffsetCoord.EVEN, coords);
                      System.out.println("Hex w Arr - Q: " + cubeArr[x][y].q + " R : " + cubeArr[x][y].r  + " S: " + cubeArr[x][y].s);
                 hexPixArr[x][y] = hexToPixel(gameLayout, cubeArr[x][y]);
-               // System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
+                System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
                         //pixelToHex(gameLayout,hexToPixel(gameLayout, hex));
                 
                 } else {
@@ -112,7 +185,7 @@ public class TiledMapStage extends Stage {
                //cubeArr[x][y] =  roffsetToCube(OffsetCoord.ODD, coords); 
                System.out.println("ODD Hex w Arr - Q: " + cubeArr[x][y].q + " R : " + cubeArr[x][y].r  + " S: " + cubeArr[x][y].s);
                 hexPixArr[x][y] = hexToPixel(gameLayout, cubeArr[x][y]);
-               //  System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
+                 System.out.println("Hex w hexPixArr - Q: " + hexPixArr[x][y].x + " R: " +hexPixArr[x][y].y);
                 }
                 
                 addActor(actor);
@@ -124,10 +197,28 @@ public class TiledMapStage extends Stage {
         System.out.println("Myszka X: "+ Gdx.input.getX( )+ " A Y:" + Gdx.input.getY());
        // p = new Point(Gdx.input.getX( ),Gdx.input.getY( ));
        // pCube =   pixelToHex(gameLayout, p);
-       // System.out.println("A klikniecie na hex to hex(frac): " + pCube.q + "," + pCube.r + ","+pCube.s );
-       // System.out.println("Hex w Arr - Q: " + cubeArr[2][2].q + " R : " + cubeArr[2][2].r  + " S: " + cubeArr[2][2].s);
-      // System.out.println("Hex w HexPixArr - Q: " + hexPixArr[0][0].x + " R : " + hexPixArr[0][0].y);
-     
+    //   System.out.println("A klikniecie na hex to hex(frac): " + pCube.q + "," + pCube.r + ","+pCube.s );
+     //  System.out.println("Hex w Arr - Q: " + cubeArr[2][2].q + " R : " + cubeArr[2][2].r  + " S: " + cubeArr[2][2].s);
+    //   System.out.println("Hex w HexPixArr - Q: " + hexPixArr[0][0].x + " R : " + hexPixArr[0][0].y);
+     System.out.println("qOffsetFromCube: " + qoffsetFromCube(OffsetCoord.EVEN,new Hex(0,3,-3)).col + " Row: " + qoffsetFromCube(OffsetCoord.EVEN,new Hex(0,3,-3)).row);
+    }
+    
+    public void renderObjects(){
+        
+        for(int i=0;i < buildingsList.size();i++){
+           
+                 //   buildings =  buildingsList.get(i);
+                   buildingsList.get(i).render((float) hexPixArr[qoffsetFromCube(OffsetCoord.EVEN,new Hex(buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s)).col][qoffsetFromCube(OffsetCoord.EVEN,new Hex(buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s)).row].x-84, (float) (hexPixArr[qoffsetFromCube(OffsetCoord.EVEN,new Hex(buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s)).col][qoffsetFromCube(OffsetCoord.EVEN,new Hex(buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s)).row].y - 127));
+                  
+        }
+        for(int i=0;i< unitsList.size();i++){
+             unitsList.get(i).render((float) hexPixArr[qoffsetFromCube(OffsetCoord.EVEN,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).col][qoffsetFromCube(OffsetCoord.EVEN,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).row].x-44, (float) (hexPixArr[qoffsetFromCube(OffsetCoord.EVEN,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).col][qoffsetFromCube(OffsetCoord.EVEN,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).row].y - 157));
+                   
+        }
+        button.setX(110);
+        button.setY(220);
+          stage.act();
+        stage.draw();
     }
     
 
