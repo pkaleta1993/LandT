@@ -14,16 +14,40 @@ import java.util.ArrayList;
 
 public class FractionalHex
 {
+
+    /**
+     *
+     * @param q
+     * @param r
+     * @param s
+     */
     public FractionalHex(double q, double r, double s)
     {
         this.q = q;
         this.r = r;
         this.s = s;
     }
+
+    /**
+     *
+     */
     public final double q;
+
+    /**
+     *
+     */
     public final double r;
+
+    /**
+     *
+     */
     public final double s;
 
+    /**
+     *
+     * @param h
+     * @return
+     */
     static public Hex hexRound(FractionalHex h)
     {
         int q = (int)(Math.round(h.q));
@@ -53,13 +77,24 @@ public class FractionalHex
         return new Hex(q, r, s);
     }
 
-
+    /**
+     *
+     * @param a
+     * @param b
+     * @param t
+     * @return
+     */
     static public FractionalHex hexLerp(FractionalHex a, FractionalHex b, double t)
     {
         return new FractionalHex(a.q * (1 - t) + b.q * t, a.r * (1 - t) + b.r * t, a.s * (1 - t) + b.s * t);
     }
 
-
+    /**
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     static public ArrayList<Hex> hexLinedraw(Hex a, Hex b)
     {
         int N = Hex.distance(a, b);

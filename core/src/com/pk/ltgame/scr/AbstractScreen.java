@@ -21,13 +21,27 @@ import com.pk.ltgame.LandTerrorGame;
  */
 public abstract class AbstractScreen implements Screen {
 
-protected LandTerrorGame game;
-protected Stage stage;
+    /**
+     *
+     */
+    protected LandTerrorGame game;
+
+    /**
+     *
+     */
+    protected Stage stage;
 OrthographicCamera camera;
 
-protected SpriteBatch spriteBatch;
+    /**
+     *
+     */
+    protected SpriteBatch spriteBatch;
 
-public AbstractScreen(LandTerrorGame game) {
+    /**
+     *
+     * @param game
+     */
+    public AbstractScreen(LandTerrorGame game) {
     this.game = game;
     createCamera();
     stage = new Stage(new StretchViewport(LandTerrorGame.WIDTH, LandTerrorGame.HEIGHT, camera));

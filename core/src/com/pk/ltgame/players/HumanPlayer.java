@@ -7,6 +7,7 @@ package com.pk.ltgame.players;
 
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,19 +15,60 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class HumanPlayer extends Actor {
     
+    /**
+     *
+     */
     public String color;
+
+    /**
+     *
+     */
     public int gold;
+
+    /**
+     *
+     */
     public int food;
-    public int techpoints;
+
+    /**
+     *
+     */
+    public float techpoints;
+
+    /**
+     *
+     */
     public int turn;
-    public HumanPlayer(String color, int gold, int food, int techpoints, int turn) {
-        
+    public String race;
+    public  ArrayList<Boolean> technology;
+    /**
+     *
+     * @param color
+     * @param gold
+     * @param food
+     * @param techpoints
+     * @param turn
+     */
+    public HumanPlayer(String color, int gold, int food, float techpoints, int turn, String race, ArrayList<Boolean> tech) {
+        this.technology = tech;
         this.color = color;
         this.gold = gold;
         this.food = food;
         this.techpoints = techpoints;
         this.turn = turn;
+        this.race = race;
     }
 
+    /**
+     *
+     * @param gold
+     * @param food
+     */
+    public void payFor(int gold, int food)
+    {
+        this.gold = this.gold - gold;
+        this.food = this.food - food;
+    }
+    
   
 }

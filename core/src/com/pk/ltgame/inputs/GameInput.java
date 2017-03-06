@@ -26,9 +26,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.pk.ltgame.map.TiledMapStage;
 import com.pk.ltgame.stream.InputStream;
 
+/**
+ *
+ * @author pkale
+ */
 public class GameInput implements InputProcessor {
    
- public final InputStream postMC = new InputStream();
+    /**
+     *
+     */
+    public final InputStream postMC = new InputStream();
    
 
     @Override

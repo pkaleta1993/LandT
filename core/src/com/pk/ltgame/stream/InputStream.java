@@ -13,6 +13,12 @@ import com.pk.ltgame.map.TiledMapStage;
  */
 public class InputStream {
     final TiledMapStage tiledMS = new TiledMapStage();
+
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void postMouseClick(double x, double y)
     {
         

@@ -22,6 +22,10 @@ public class SplashScreen extends AbstractScreen {
     //public static final String splashImgDir = "splash.jpg";
    // public static final String splashBGImgDir = "splashBG.jpg";
 
+    /**
+     *
+     * @param game
+     */
     public SplashScreen(final LandTerrorGame game) {
      super(game);
      init();

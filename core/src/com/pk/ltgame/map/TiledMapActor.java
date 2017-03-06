@@ -19,14 +19,28 @@ public class TiledMapActor extends Actor {
 
     private TiledMapTileLayer tiledLayer;
 
+    /**
+     *
+     */
     public TiledMapTileLayer.Cell cell;
 
+    /**
+     *
+     * @param tiledMap
+     * @param tiledLayer
+     * @param cell
+     */
     public TiledMapActor(TiledMap tiledMap, TiledMapTileLayer tiledLayer, TiledMapTileLayer.Cell cell) {
         //this.tiledMap = tiledMap;
         //this.tiledLayer = tiledLayer;
         this.cell = cell;
     }
-public TiledMapTileLayer.Cell getCell() {
+
+    /**
+     *
+     * @return
+     */
+    public TiledMapTileLayer.Cell getCell() {
             return cell;
         }
 }

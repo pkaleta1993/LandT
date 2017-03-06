@@ -1,8 +1,32 @@
 {
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
-    default: {
+    move: {
         imageDown: unitButtonC, 
         imageUp: unitButton
+    }
+	farm: {
+        imageDown: unitFarmC, 
+        imageUp: unitFarm
+    }
+	craft: {
+        imageDown: unitCraftC, 
+        imageUp: unitCraft
+    }
+	hire: {
+        imageDown: unitHireC, 
+        imageUp: unitHire
+    }
+	melee: {
+        imageDown: unitMeleeC, 
+        imageUp: unitMelee
+    }
+	range: {
+        imageDown: unitRangeC, 
+        imageUp: unitRange
+    }
+	special: {
+        imageDown: unitSpecialC, 
+        imageUp: unitSpecial
     }
 }
 }

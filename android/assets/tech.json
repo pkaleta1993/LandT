@@ -1,0 +1,17 @@
+{
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+    double: {
+        
+        imageUp: double
+    }
+	buildings: {
+        , 
+        imageUp: buildings
+    }
+	units: {
+        
+        imageUp: units
+    }
+	
+}
+}

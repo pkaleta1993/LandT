@@ -18,11 +18,21 @@ public class TiledMapClickListener  extends ClickListener {
 
     private TiledMapActor actor;
 
+    /**
+     *
+     * @param actor
+     */
     public TiledMapClickListener(TiledMapActor actor) {
         this.actor = actor;
        
     }
 
+    /**
+     *
+     * @param event
+     * @param x
+     * @param y
+     */
     @Override
     public void clicked(InputEvent event, float x, float y) {
         

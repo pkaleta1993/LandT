@@ -30,29 +30,44 @@ import com.pk.ltgame.scr.GameScreen;
 
 public class GameHUD{
 
-public Stage stage;
+    /**
+     *
+     */
+    public Stage stage;
 private Viewport viewport;
 
 //score && time tracking variables
 private int worldTimer;
 private float timeCount;
 private static int score;
-private static int gold;
-private int food;
-private int techPoints;
+public  int gold;
+private static int food;
+private static float techPoints;
 private static int turn;
 private String player;
 private boolean timeUp;
 private LandTerrorGame game;
-private TextButton turnButton;
+
+    /**
+     *
+     */
+    public  TextButton turnButton;
 private TextureAtlas atlas;
 private Skin skin;
 //private Color pColor;
 //Scene2D Widgets
-private Label timeLabelV, playerLabelV, foodLabelV, techPointsLabelV, turnLabelV, timeLabel, goldLabel, playerLabel, foodLabel, techPointsLabel, turnLabel;
-private static Label goldLabelV;
+private Label timeLabelV, playerLabelV, turnLabelV, timeLabel, goldLabel, playerLabel, foodLabel, techPointsLabel, turnLabel;
+private static Label goldLabelV, foodLabelV, techPointsLabelV;
 
-public GameHUD (String playerColor, int gold, int food, int techPoints, int turn){
+    /**
+     *
+     * @param playerColor
+     * @param gold
+     * @param food
+     * @param techPoints
+     * @param turn
+     */
+    public GameHUD (String playerColor, int gold, int food, float techPoints, int turn){
     //define tracking variables
     worldTimer = 0;
     timeCount = 0;
@@ -76,7 +91,7 @@ public GameHUD (String playerColor, int gold, int food, int techPoints, int turn
     goldLabelV =new Label(String.format("%1d", gold), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     playerLabelV =new Label(String.format("%1s", player), new Label.LabelStyle(new BitmapFont(),Color.valueOf("Ff0000")));
     foodLabelV =new Label(String.format("%1d", food), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    techPointsLabelV =new Label(String.format("%1d", techPoints), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    techPointsLabelV =new Label(String.format("%1$.2f", techPoints), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     turnLabelV =new Label(String.format("%1d", turn), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     timeLabel = new Label("Time", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     goldLabel = new Label("Gold", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -90,13 +105,14 @@ public GameHUD (String playerColor, int gold, int food, int techPoints, int turn
     turnButton = new TextButton("Next turn", skin,"default");
     
     //define a table used to organize hud's labels
-    turnButton.addListener(new ClickListener(){
+   /* turnButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
            GameHUD.turn++;
            turnLabelV.setText(String.format("%1d", GameHUD.turn));
             }
         });
+*/
     Table table = new Table();
     table.top();
     table.setFillParent(true);
@@ -129,7 +145,11 @@ public GameHUD (String playerColor, int gold, int food, int techPoints, int turn
    
 }
 
-public void update(float dt){
+    /**
+     *
+     * @param dt
+     */
+    public void update(float dt){
     timeCount += dt;
     if(timeCount >= 1){
         if (timeUp == false) {
@@ -147,21 +167,68 @@ private String countTime(int timer) {
      return String.format("%02d:%02d", timer / 60, timer % 60);    
 }
 
-public static void addGold(int value){
-    gold += value;
-    goldLabelV.setText(String.format("%06d", gold));
+    /**
+     *
+     */
+    public void addTurn(){
+        turn++;
+        turnLabelV.setText(String.format("%1d", GameHUD.turn));
 }
 
-public void dispose() { stage.dispose(); }
+    /**
+     *
+     * @param value
+     */
+    public void addGold(int value){
+    gold += value;
+    goldLabelV.setText(String.format("%1d", gold));
+}
+    public void payTech(float value){
+        techPoints -= value;
+        techPointsLabelV.setText(String.format("%1$.2f", techPoints));        
+    }
+    /**
+     *
+     * @param value
+     */
+    public void addFood(int value){
+    food += value;
+    foodLabelV.setText(String.format("%1d", food));
+}
 
-public boolean isTimeUp() { return timeUp; }
+    /**
+     *
+     * @param value
+     */
+    public void addtechPoints(float value){
+    techPoints += value;
+    techPointsLabelV.setText(String.format("%1$.2f", techPoints));
+}
 
+    /**
+     *
+     */
+    public void dispose() { stage.dispose(); }
 
-public static Label getScoreLabel() {
+    /**
+     *
+     * @return
+     */
+    public boolean isTimeUp() { return timeUp; }
+
+    /**
+     *
+     * @return
+     */
+    public static Label getScoreLabel() {
     return goldLabelV;
 }
 
-public static Integer getScore() {
+    /**
+     *
+     * @return
+     */
+    public static Integer getScore() {
     return score;
 }
 }

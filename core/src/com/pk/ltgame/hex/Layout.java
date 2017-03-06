@@ -13,18 +13,51 @@ import java.util.ArrayList;
  */
 public class Layout
 {
+
+    /**
+     *
+     * @param orientation
+     * @param size
+     * @param origin
+     */
     public Layout(Orientation orientation, Point size, Point origin)
     {
         this.orientation = orientation;
         this.size = size;
         this.origin = origin;
     }
+
+    /**
+     *
+     */
     public final Orientation orientation;
+
+    /**
+     *
+     */
     public final Point size;
+
+    /**
+     *
+     */
     public final Point origin;
+
+    /**
+     *
+     */
     static public Orientation pointy = new Orientation(Math.sqrt(3.0), Math.sqrt(3.0) / 2.0, 0.0, 3.0 / 2.0, Math.sqrt(3.0) / 3.0, -1.0 / 3.0, 0.0, 2.0 / 3.0, 0.5);
+
+    /**
+     *
+     */
     static public Orientation flat = new Orientation(3.0 / 2.0, 0.0, Math.sqrt(3.0) / 2.0, Math.sqrt(3.0), 2.0 / 3.0, 0.0, -1.0 / 3.0, Math.sqrt(3.0) / 3.0, 0.0);
 
+    /**
+     *
+     * @param layout
+     * @param h
+     * @return
+     */
     static public Point hexToPixel(Layout layout, Hex h)
     {
        // System.out.println("HexToPixel() Q: " + h.q + " R: " + h.r + " S: " + h.s);
@@ -42,7 +75,12 @@ public class Layout
         return new Point(x + origin.x, y + origin.y);
     }
 
-
+    /**
+     *
+     * @param layout
+     * @param p
+     * @return
+     */
     static public FractionalHex pixelToHex(Layout layout, Point p)
     {
         Orientation M = layout.orientation;
@@ -54,7 +92,12 @@ public class Layout
         return new FractionalHex(q, r, -q - r);
     }
 
-
+    /**
+     *
+     * @param layout
+     * @param corner
+     * @return
+     */
     static public Point hexCornerOffset(Layout layout, int corner)
     {
         Orientation M = layout.orientation;
@@ -63,7 +106,12 @@ public class Layout
         return new Point(size.x * Math.cos(angle), size.y * Math.sin(angle));
     }
 
-
+    /**
+     *
+     * @param layout
+     * @param h
+     * @return
+     */
     static public ArrayList<Point> polygonCorners(Layout layout, Hex h)
     {
         ArrayList<Point> corners = new ArrayList<Point>(){{}};

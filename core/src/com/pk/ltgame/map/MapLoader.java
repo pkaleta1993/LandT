@@ -31,7 +31,11 @@ import com.pk.ltgame.objects.TileBuildings;
  * @author pkale
  */
 public class MapLoader extends Image{
-        public TiledMap map;
+
+    /**
+     *
+     */
+    public TiledMap map;
         
     	//private TiledMapRenderer renderer;
        private HexagonalTiledMapRenderer renderer;
@@ -39,6 +43,10 @@ public class MapLoader extends Image{
        // private TileBuildings buildings;
        // private SpriteBatch batch;
         // private Texture splashgamehudimg;
+
+    /**
+     *
+     */
         public void createMap(){
            
         map = new TmxMapLoader().load("newm4.tmx");
@@ -69,7 +77,10 @@ public class MapLoader extends Image{
     
         }
         
-        public void renderMap(){
+    /**
+     *
+     */
+    public void renderMap(){
          Gdx.gl.glClearColor(1, 1, 1, 1);
        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

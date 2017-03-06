@@ -39,9 +39,17 @@ public class MenuSettingsScreen extends AbstractScreen{
     private Viewport viewport;
   //  private OrthographicCamera camera;
     private TextureAtlas atlas;
+
+    /**
+     *
+     */
     protected Skin skin;
    private LandTerrorGame game;
    
+    /**
+     *
+     * @param game
+     */
     public MenuSettingsScreen(final LandTerrorGame game)
     {
       
@@ -87,7 +95,7 @@ public class MenuSettingsScreen extends AbstractScreen{
       // SelectBox.SelectBoxStyle boxStyle = new SelectBox.SelectBoxStyle();
     //creating boxStyle...
 
-    String[] values = new String[]{"ludzie", "elfy", "demony", "nieumarli"};
+    String[] values = new String[]{"Humans", "Undeads", "Demons"};
     final SelectBox<String> selectBox = new SelectBox<String>(skin);
     selectBox.setItems(values);
      // SelectBox selectBox = new SelectBox(skin, new String[] {"Item 1", "Item 2", "Item 3"});
@@ -98,7 +106,9 @@ public class MenuSettingsScreen extends AbstractScreen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
-                           game.setScreen(new GameScreen(game));            
+              // GameScreen screen = new GameScreen(game);            
+               game.setScreen(new GameScreen(game, selectBox.getSelected()));   
+                           
 // game.setScreen(new MenuScreen(game));
             }
         });

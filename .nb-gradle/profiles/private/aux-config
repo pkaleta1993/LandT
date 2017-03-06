@@ -5,17 +5,43 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group>
-        <file>file:/C:/Users/pkale/Desktop/LandT/build.gradle</file>
-        <file>file:/C:/Users/pkale/Desktop/LandT/gradle.properties</file>
-        <file>file:/C:/Users/pkale/Desktop/LandT/settings.gradle</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/desktop/src/com/pk/ltgame/desktop/DesktopLauncher.java</file>
       </group>
     </open-files>
     <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group>
-        <file>file:/C:/Users/pkale/Desktop/LandT/build.gradle</file>
-        <file>file:/C:/Users/pkale/Desktop/LandT/gradle.properties</file>
-        <file>file:/C:/Users/pkale/Desktop/LandT/settings.gradle</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hud/TechHUD.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hud/UnitsHUD.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/players/HumanPlayer.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/GameScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/LandTerrorGame.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hud/TilesHUD.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/stream/InputStream.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/OffsetCoord.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/FractionalHex.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/map/MapLoader.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/objects/TileBuildings.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/objects/HexCalculation.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/MenuScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/Check.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/map/TiledMapActor.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/LandTerrorGame.gwt.xml</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/AbstractScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/map/TiledMapClickListener.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hud/GameHUD.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/map/TiledMapStage.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/Orientation.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/inputs/GameInput.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/MenuSettingsScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/SplashScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/Hex.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/scr/EndScreen.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hud/EscHUD.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/Point.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/hex/Layout.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/players/AIPlayer.java</file>
+        <file>file:/C:/Users/pkale/Desktop/LandT/core/src/com/pk/ltgame/objects/Units.java</file>
       </group>
     </open-files>
   </auxiliary>

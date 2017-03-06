@@ -36,10 +36,18 @@ public class MenuScreen extends AbstractScreen{
     private Viewport viewport;
   //  private OrthographicCamera camera;
     private TextureAtlas atlas;
+
+    /**
+     *
+     */
     protected Skin skin;
    private LandTerrorGame game;
    
-    public MenuScreen(final LandTerrorGame game)
+    /**
+     *
+     * @param game
+     */
+    public MenuScreen(LandTerrorGame game)
     {
       
         super(game);
@@ -99,16 +107,20 @@ public class MenuScreen extends AbstractScreen{
                 Gdx.app.exit();
             }
         });
-
+playButton.setWidth(200);
+optionsButton.setWidth(200);
+exitButton.setWidth(200);
+ mainTable.setFillParent(true);
         //Add buttons to table
-        mainTable.add(playButton);
+        mainTable.add(playButton).width(200);
         mainTable.row();
-        mainTable.add(optionsButton);
+        mainTable.add(optionsButton).width(200);
         mainTable.row();
-        mainTable.add(exitButton);
+        mainTable.add(exitButton).width(200);
 
         //Add table to stage
         stage.addActor(mainTable);
+        //mainTable.setWidth(200);
     }
 
     @Override

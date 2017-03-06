@@ -13,16 +13,44 @@ package com.pk.ltgame.hex;
  */
 public class OffsetCoord
 {
+
+    /**
+     *
+     * @param col
+     * @param row
+     */
     public OffsetCoord(int col, int row)
     {
         this.col = col;
         this.row = row;
     }
+
+    /**
+     *
+     */
     public final int col;
+
+    /**
+     *
+     */
     public final int row;
+
+    /**
+     *
+     */
     static public int EVEN = 1;
+
+    /**
+     *
+     */
     static public int ODD = -1;
 
+    /**
+     *
+     * @param offset
+     * @param h
+     * @return
+     */
     static public OffsetCoord qoffsetFromCube(int offset, Hex h)
     {
         int col = h.q;
@@ -30,7 +58,12 @@ public class OffsetCoord
         return new OffsetCoord(col, row);
     }
 
-
+    /**
+     *
+     * @param offset
+     * @param h
+     * @return
+     */
     static public Hex qoffsetToCube(int offset, OffsetCoord h)
     {
         int q = h.col;
@@ -45,7 +78,12 @@ public class OffsetCoord
         return new Hex(q, r, s);
     }
 
-
+    /**
+     *
+     * @param offset
+     * @param h
+     * @return
+     */
     static public OffsetCoord roffsetFromCube(int offset, Hex h)
     {
         int col = h.q + (int)((h.r + offset * (h.r & 1)) / 2);
@@ -53,7 +91,12 @@ public class OffsetCoord
         return new OffsetCoord(col, row);
     }
 
-
+    /**
+     *
+     * @param offset
+     * @param h
+     * @return
+     */
     static public Hex roffsetToCube(int offset, OffsetCoord h)
     {
         int q = h.col - (int)((h.row + offset * (h.row & 1)) / 2);
