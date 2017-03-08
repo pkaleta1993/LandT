@@ -56,7 +56,7 @@ public class Units {
      */
     public String playerColor;
     private Label unitsCount;
-
+    public int id;
     /**
      *
      */
@@ -90,6 +90,7 @@ public class Units {
      * @param playerColor
      */
     public Units(int id, int q, int r, int s, int meleeUnits, int rangeUnits, int specialUnits, float move, String playerColor){
+        this.id = id;
         this.q = q;
         this.r = r;
         this.s = s;

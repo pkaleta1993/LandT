@@ -33,17 +33,22 @@ public final class TileBuildings {
     public float HP;
     public int maxHP;
     public int dayGold, dayFood;
+    public  String race;
     public float dayTechPoints;
     private ProgressBar bar;
     private ProgressBarStyle barStyle;
     private TextureRegionDrawable barTexture;
     private TextureAtlas atlas;
+    public int id;
     protected Skin skin;
     float y;
     public String playerColor;
     public String textureName;
-    public String race;
+    
+    
+    
     public TileBuildings(int id, int q, int r, int s, int maxHP, float hp, int dayGold, int dayFood, float dayTechPoints, String playerColor, String textureName, String race){
+        this.id = id;
         this.q = q;
         this.r = r;
         this.s = s;
@@ -55,6 +60,9 @@ public final class TileBuildings {
         this.dayGold = dayGold;
         this.dayTechPoints = dayTechPoints;
         this.race = race;
+         System.out.println("///////////Rasa: "+race);
+        System.out.println("///////////Rasa: "+this.race);
+        
         create(textureName);
     };
     /*
@@ -63,6 +71,7 @@ public final class TileBuildings {
     public void create (String textureName) {
         batch = new SpriteBatch();
         stage = new Stage();
+        
         img = new Texture(Gdx.files.internal(textureName+playerColor+race+".png"));
         tileBuilding = new Sprite(img);
         atlas = new TextureAtlas("uiskin.atlas");

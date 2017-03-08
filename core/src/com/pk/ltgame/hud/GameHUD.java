@@ -40,11 +40,11 @@ private Viewport viewport;
 private int worldTimer;
 private float timeCount;
 private static int score;
-public  int gold;
-private static int food;
-private static float techPoints;
-private static int turn;
-private String player;
+public int gold;
+public int food;
+public float techPoints;
+public  int turn;
+public String player;
 private boolean timeUp;
 private LandTerrorGame game;
 
@@ -172,7 +172,7 @@ private String countTime(int timer) {
      */
     public void addTurn(){
         turn++;
-        turnLabelV.setText(String.format("%1d", GameHUD.turn));
+        turnLabelV.setText(String.format("%1d", turn));
 }
 
     /**

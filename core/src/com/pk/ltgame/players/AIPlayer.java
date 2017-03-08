@@ -43,7 +43,7 @@ public class AIPlayer extends Actor{
     /**
      *
      */
-    public int techpoints;
+    public float techpoints;
 
     /**
      *
@@ -64,7 +64,7 @@ public class AIPlayer extends Actor{
      * @param techpoints
      * @param turn
      */
-    public AIPlayer(String color, int gold, int food, int techpoints, int turn, String race) {
+    public AIPlayer(String color, int gold, int food, float techpoints, int turn, String race) {
         
         this.color = color;
         this.gold = gold;
@@ -99,6 +99,7 @@ public class AIPlayer extends Actor{
         // if tile obok, ktory warto atakowac, to atakuj
         //czy warto kupic jednostki
         // czy warto kupic budynek
+        System.out.println("makeADecision: Działania gracza AI");
         this.tMS = map;
         int oF = 0;
         ArrayList<Double> buyBuildingCalculations = new ArrayList<Double>();
@@ -108,7 +109,7 @@ public class AIPlayer extends Actor{
         int selectedID = -1;
         for(int i=0;i<unitsList.size();i++)
         {
-            if(this.color == unitsList.get(i).playerColor){
+            if(this.color.equals(new String(unitsList.get(i).playerColor))){
                          //   System.out.println(this.color + " == " + unitsList.get(i).playerColor);
             
             selectedID = unitsList.indexOf(unitsList.get(i));
@@ -824,7 +825,7 @@ public class AIPlayer extends Actor{
     public int getSummaryGold(ArrayList<TileBuildings> buildingsList, String color){
         int goldSummary = 0;
         for(int i=0;i<buildingsList.size();i++){
-            if(buildingsList.get(i).playerColor == color)
+            if(buildingsList.get(i).playerColor.equals(new String(color)))
             {
                 goldSummary += buildingsList.get(i).dayGold;
             }
@@ -835,7 +836,7 @@ public class AIPlayer extends Actor{
      public int getSummaryFood(ArrayList<TileBuildings> buildingsList, String color){
         int foodSummary = 0;
         for(int i=0;i<buildingsList.size();i++){
-            if(buildingsList.get(i).playerColor == color)
+            if(buildingsList.get(i).playerColor.equals(new String(color)))
             {
                 foodSummary += buildingsList.get(i).dayFood;
             }

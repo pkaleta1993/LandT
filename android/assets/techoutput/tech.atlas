@@ -17,9 +17,16 @@ double
   orig: 100, 100
   offset: 0, 0
   index: -1
-units
+save
   rotate: false
   xy: 205, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+units
+  rotate: false
+  xy: 307, 1
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

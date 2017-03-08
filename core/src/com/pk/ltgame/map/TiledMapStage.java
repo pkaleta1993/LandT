@@ -9,7 +9,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import com.badlogic.gdx.maps.MapLayer;
@@ -22,10 +26,15 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.XmlWriter;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pk.ltgame.LandTerrorGame;
 import com.pk.ltgame.hex.Hex;
 import com.pk.ltgame.hex.Layout;
@@ -47,9 +56,13 @@ import com.pk.ltgame.players.HumanPlayer;
 import com.pk.ltgame.scr.AbstractScreen;
 import com.pk.ltgame.scr.EndScreen;
 import com.pk.ltgame.scr.GameScreen;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -66,9 +79,22 @@ public class TiledMapStage extends Stage {
     private AIPlayer AIplayer;
     private Hex pHex;
     private Hex hexNB;
-    public static int mapXCells, mapYCells;
+
+    /**
+     *
+     */
+    public static int mapXCells,
+
+    /**
+     *
+     */
+    mapYCells;
     private TileBuildings buildings;
     private Units units;
+
+    /**
+     *
+     */
     public static Hex[][] cubeArr;
      private TextureAtlas atlas;
      private GameScreen gameAccess;
@@ -102,7 +128,15 @@ public class TiledMapStage extends Stage {
     public Point[][] hexPixArr;
     private OffsetCoord clickOffset;
     private InputMultiplexer inputMux;
+
+    /**
+     *
+     */
     public static ArrayList<Hex> hexNeighbors = new ArrayList<Hex>();
+
+    /**
+     *
+     */
     public static ArrayList<TileBuildings> buildingsList = new ArrayList<TileBuildings>();
     private static ArrayList<Units> unitsList = new ArrayList<Units>();
     private static ArrayList<ImageButton> buttonUnitsMoveList = new ArrayList<ImageButton>();
@@ -116,6 +150,10 @@ public class TiledMapStage extends Stage {
     private static ArrayList<AIPlayer> aiplayersList = new ArrayList<AIPlayer>();
     private static ArrayList<OffsetCoord> allHexagonals;
     private static ArrayList<OffsetCoord> allInvisible;
+
+    /**
+     *
+     */
     public int tileBuildingI = 0;
      Point layoutSize = new Point(99,99);
         Point layoutOrigin = new Point(99,172);
@@ -130,7 +168,7 @@ public class TiledMapStage extends Stage {
      * @param playersList
      * @param aiplayersList
      * @param gameHUD
-     * @param game
+     * @param techHUD
      */
     public TiledMapStage(TiledMap tiledMap, ArrayList<HumanPlayer> playersList,ArrayList<AIPlayer> aiplayersList , GameHUD gameHUD, TechHUD techHUD) {
        TiledMapStage.playersList = playersList;
@@ -172,6 +210,8 @@ public class TiledMapStage extends Stage {
         tileUnitI++;
         addTileUnit(tileUnitI,1,1,-2, 4, 2, 0, 1, playersList.get(0).color);
         tileUnitI++;
+        addTileUnit(tileUnitI,3,0,-3, 4, 2, 0, 1, aiplayersList.get(0).color);
+        tileUnitI++;
         System.out.println("Liczba obiektów w konstruktorze: " + unitsList.size());
         this.gameHUDInputProcessor.turnButton.addListener(new ClickListener(){
             @Override
@@ -179,6 +219,15 @@ public class TiledMapStage extends Stage {
             nextTurn();
            gameHUDInputProcessor.addTurn();
             }
+        });
+        
+        this.techHUDInputProcessor.buttonSave.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               saveGame();
+            }
+           
         });
         
         this.techHUDInputProcessor.buttonDouble.addListener(new ClickListener(){
@@ -268,33 +317,204 @@ public class TiledMapStage extends Stage {
          this.allHexagonals = setUpAllOffsetCoords(cubeArr, mapXCells, mapYCells);
          this.allInvisible =  getAllInvisible();
                
-         saveGame();
+       //  saveGame();
 
     }
-    
-    private void saveGame(){
-        FileHandle save = Gdx.files.local("data/aa.json");
-       Json json = new Json();
-       //JSONObject 
-      // json.toJson(playersList, save);
-      TileBuildings building = buildingsList.get(0);
-       json.toJson(this.gameHUDInputProcessor.gold,GameHUD.class, save);
-       Units unitToSave;
+
+    /**
+     *
+     * @param map
+     * @param playersList
+     * @param aiplayersList
+     * @param hud
+     * @param buildingsList
+     * @param unitsList
+     */
+    public TiledMapStage(TiledMap map, ArrayList<HumanPlayer> playersList, ArrayList<AIPlayer> aiplayersList, GameHUD hud, ArrayList<TileBuildings> buildingsList, ArrayList<Units> unitsList, TechHUD thud) {
+       this.playersList = playersList;
+       this.aiplayersList = aiplayersList;
+       
+      // this.buildingsList = buildingsList;
+      // this.unitsList = unitsList;
+         System.out.println("Rozmiar:"+this.playersList.size());
+        System.out.println("Rozmiar:"+this.aiplayersList.size());
+        System.out.println("Rozmiar:"+buildingsList.size());
+        System.out.println("Rozmiar:"+unitsList.size());
+     /*  for(int i=0;i<buildingsList.size();i++)
+       {
+           buildingsList.get(i).create(buildingsList.get(i).textureName);
+       }
+       */
+     
+        this.atlas = new TextureAtlas("units.atlas");
+       this.skin = new Skin(Gdx.files.internal("units.json"), atlas);
+        this.tileBuildingI = 0;
+       for(int i = 0;i<buildingsList.size();i++)
+       {
+           addTileBuilding(buildingsList.get(i).id,buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s,buildingsList.get(i).maxHP,buildingsList.get(i).HP,buildingsList.get(i).dayGold,buildingsList.get(i).dayFood,buildingsList.get(i).dayTechPoints,buildingsList.get(i).playerColor,buildingsList.get(i).textureName,buildingsList.get(i).race);
+       }
+       selectedUnit = -1;
+       selectedUnitHire = -1;
+       stage = new Stage();
+       int tileUnitI = unitsList.size();
       
        for(int i=0;i<unitsList.size();i++)
        {
-           unitToSave = unitsList.get(i);
-          // System.out.println("<<<<<<<<<<<<<"+unitToSave.meleeUnits);
-          // json.toJson(unitToSave, Objects.class,save);
+           System.out.println("addTileUnit("+unitsList.get(i).id+", "+unitsList.get(i).q+", "+unitsList.get(i).r+", "+unitsList.get(i).s+", "+unitsList.get(i).meleeUnits+", "+unitsList.get(i).rangeUnits+", "+unitsList.get(i).specialUnits+", "+unitsList.get(i).move+", "+unitsList.get(i).playerColor);
+      
+           addTileUnit(unitsList.get(i).id,unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s,unitsList.get(i).meleeUnits,unitsList.get(i).rangeUnits,unitsList.get(i).specialUnits,unitsList.get(i).move,unitsList.get(i).playerColor);
            
-      }
-       //json.toJson(aiplayersList,save);
-       //json.toJson(playersList, save);
-     //  json.toJson( unitsList, ArrayList.class, save);
-      // json.to
-      // json.toJson(buildingsList,save);
-      //// json.
-                   //json.toJson(tiledMapS.)
+       }
+       
+       
+       
+       this.tiledMap = map;
+       this.gameHUDInputProcessor = hud;
+       this.techHUDInputProcessor = thud;
+       
+       
+        this.gameHUDInputProcessor.turnButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            nextTurn();
+           gameHUDInputProcessor.addTurn();
+            }
+        });
+         this.techHUDInputProcessor.buttonSave.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               saveGame();
+            }
+           
+        });
+        
+         
+        this.techHUDInputProcessor.buttonDouble.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(techHUDInputProcessor.techPoints >=1){
+                    techHUDInputProcessor.payByTechPoints(1);
+                    gameHUDInputProcessor.payTech(1);
+                    System.out.println("Jest w double");
+                   // stage.getActors().removeIndex(stage.getActors().indexOf(buttonUnitsMeleeList.get(selectedUnitHire), true));
+                   //System.out.println("Ilość aktorów: " + techHUDInputProcessor.stage.getActors().get(0).);
+                    //techHUDInputProcessor.stage.getActors().removeIndex(techHUDInputProcessor.stage.getActors().indexOf(techHUDInputProcessor.buttonDouble, true));
+                    techHUDInputProcessor.deleteTechnology(techHUDInputProcessor.buttonDouble);
+                    techHUDInputProcessor.setTrue(0);
+                }
+            }
+           
+        });
+        this.techHUDInputProcessor.buttonBuildings.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(techHUDInputProcessor.techPoints >=2){
+                    techHUDInputProcessor.payByTechPoints(2);
+                    gameHUDInputProcessor.payTech(2);
+                    techHUDInputProcessor.deleteTechnology(techHUDInputProcessor.buttonBuildings);
+                    techHUDInputProcessor.setTrue(1);
+                }
+            }
+           
+        });
+        this.techHUDInputProcessor.buttonUnits.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(techHUDInputProcessor.techPoints >=2){
+                    techHUDInputProcessor.payByTechPoints(2);
+                    gameHUDInputProcessor.payTech(2);
+                    techHUDInputProcessor.deleteTechnology(techHUDInputProcessor.buttonUnits);
+                    techHUDInputProcessor.setTrue(2);
+                }
+            }
+           
+        });
+      
+        GameInput inputProcessor = new GameInput();
+        //  inputProcessor inputStage = new inputProcessor();
+         InputMultiplexer inputMux = new InputMultiplexer();
+         inputMux.addProcessor(stage);
+        inputMux.addProcessor(this.gameHUDInputProcessor.stage);
+        inputMux.addProcessor(this.techHUDInputProcessor.stage);
+       inputMux.addProcessor(inputProcessor);
+        
+         Gdx.input.setInputProcessor(inputMux);
+        for (MapLayer layer : tiledMap.getLayers()) {
+            TiledMapTileLayer tiledLayer = (TiledMapTileLayer)layer;
+            createActorsForLayer(tiledLayer);
+        }
+       
+         this.allHexagonals = setUpAllOffsetCoords(cubeArr, mapXCells, mapYCells);
+         System.out.println("Rozmiar allHexagonals"+this.allHexagonals.size());
+         this.allInvisible =  getAllInvisible();
+         System.out.println("Rozmiar allInvisible"+this.allInvisible.size());      
+       
+
+    }  
+ 
+    private void saveGame(){
+        try {
+             FileHandle save = Gdx.files.local("data/save");
+            //  Json json = new Json();
+            //JSONObject
+            // json.toJson(playersList, save);
+            // TileBuildings building = buildingsList.get(0);
+            //   String jsonString = json.prettyPrint(aiplayersList);
+            //  save.writeString(jsonString, true);
+            //  Units unitToSave;
+            
+            //   for(int i=0;i<unitsList.size();i++)
+            //  {
+            //     unitToSave = unitsList.get(i);
+            // System.out.println("<<<<<<<<<<<<<"+unitToSave.meleeUnits);
+            // json.toJson(unitToSave, Objects.class,save);
+            
+            //  }
+            //json.toJson(aiplayersList,save);
+            //json.toJson(playersList, save);
+            //  json.toJson( unitsList, ArrayList.class, save);
+            // json.to
+            // json.toJson(buildingsList,save);
+            //// json.
+            //json.toJson(tiledMapS.)
+            
+            
+            StringWriter writer = new StringWriter();
+            XmlWriter xml = new XmlWriter(writer);
+            xml.element("root");
+            xml.element("GameHUD").attribute("playerColor", gameHUDInputProcessor.player).attribute("gold", gameHUDInputProcessor.gold).attribute("food", gameHUDInputProcessor.food).attribute("techPoints", gameHUDInputProcessor.techPoints).attribute("turn", gameHUDInputProcessor.turn);
+            xml.pop();
+            for(int i=0;i<playersList.size();i++)
+            {
+                xml.element("HumanPlayer").attribute("color", playersList.get(i).color).attribute("gold", playersList.get(i).gold).attribute("food", playersList.get(i).food).attribute("techpoints", playersList.get(i).techpoints).attribute("turn", playersList.get(i).turn).attribute("race", playersList.get(i).race).attribute("tech1", playersList.get(i).technology.get(0)).attribute("tech2", playersList.get(i).technology.get(1)).attribute("tech3", playersList.get(i).technology.get(2));
+                xml.pop();
+            }
+            for(int i=0;i<aiplayersList.size();i++)
+            {
+                xml.element("AIPlayer").attribute("color", aiplayersList.get(i).color).attribute("gold", aiplayersList.get(i).gold).attribute("food", aiplayersList.get(i).food).attribute("techpoints", aiplayersList.get(i).techpoints).attribute("turn", aiplayersList.get(i).turn).attribute("race", aiplayersList.get(i).race);
+                xml.pop();
+            }
+            for(int i=0;i<buildingsList.size();i++)
+            {
+                xml.element("TileBuildings").attribute("id", buildingsList.get(i).id).attribute("q", buildingsList.get(i).q).attribute("r", buildingsList.get(i).r).attribute("s", buildingsList.get(i).s).attribute("maxHP", buildingsList.get(i).maxHP).attribute("HP", buildingsList.get(i).HP).attribute("dayGold", buildingsList.get(i).dayGold).attribute("dayFood", buildingsList.get(i).dayFood).attribute("dayTechPoints", buildingsList.get(i).dayTechPoints).attribute("playerColor", buildingsList.get(i).playerColor).attribute("textureName", buildingsList.get(i).textureName).attribute("race", buildingsList.get(i).race);
+                xml.pop();
+            }
+            for(int i=0;i<unitsList.size();i++)
+            {
+                xml.element("Units").attribute("id", unitsList.get(i).id).attribute("q", unitsList.get(i).q).attribute("r", unitsList.get(i).r).attribute("s", unitsList.get(i).s).attribute("meleeUnits", unitsList.get(i).meleeUnits).attribute("rangeUnits", unitsList.get(i).rangeUnits).attribute("specialUnits", unitsList.get(i).specialUnits).attribute("move", unitsList.get(i).move).attribute("playerColor", unitsList.get(i).playerColor);
+                xml.pop();
+            }
+            
+                    xml.pop();
+            System.out.println(writer);
+            save.writeString(writer.toString(), false);
+        } catch (IOException ex) {
+            Logger.getLogger(TiledMapStage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private Point getMouseClickPoint(double x, double y){
        return new Point(x,y);
@@ -313,12 +533,14 @@ public class TiledMapStage extends Stage {
      * @param q
      * @param r
      * @param s
+     * @param maxhp
      * @param hp
      * @param gold
      * @param food
      * @param tPoints
      * @param color
      * @param texture
+     * @param race
      */
     public final void addTileBuilding(int id, int q, int r, int s, int maxhp, float hp, int gold, int food, float tPoints, String color, String texture, String race) {
 
@@ -343,6 +565,7 @@ public class TiledMapStage extends Stage {
     public  void addTileUnit(int id, int q, int r, int s, int meleeU, int rangeU, int specialU, float mv, String color) {
         System.out.println("Liczba obiektów w addTileUnit: " + unitsList.size());
         units = new Units(id, q,r,s, meleeU, rangeU, specialU, mv, color);
+        units.updateArmy();
         unitsList.add(units);
 
         buttonMove = new ImageButton(skin,"move");
@@ -360,6 +583,7 @@ public class TiledMapStage extends Stage {
         buttonRange.setSize(Gdx.graphics.getWidth()/40f, Gdx.graphics.getWidth()/40f);
         buttonSpecial.setSize(Gdx.graphics.getWidth()/40f, Gdx.graphics.getWidth()/40f);
         buttonUnitsMoveList.add(buttonMove);
+        System.out.println("Rozmiar buttonUnitsMoveList: "+buttonUnitsMoveList.size());
         buttonUnitsFarmList.add(buttonFarm);
         buttonUnitsCraftList.add(buttonCraft);
         buttonUnitsHireList.add(buttonHire);
@@ -588,7 +812,7 @@ public class TiledMapStage extends Stage {
             }
         });
            //System.out.println("Kolorrrrrrrrrrrrrrrrrrrrrrrrrr: "+color);
-          if(color == "RED"){
+          if(color.equals(new String("RED"))){
             stage.addActor(buttonMove);
           stage.addActor(buttonFarm);
            stage.addActor(buttonCraft);
@@ -606,14 +830,19 @@ public class TiledMapStage extends Stage {
     public void nextTurn(){
 
         System.out.println("Nastepna tura");
-        turnUnits(unitsList);
-        turnPayday(buildingsList);
-        turnBuildings(buildingsList);
+         System.out.println("->Units");
+        turnUnits(this.unitsList);
+        
+        turnPayday(this.buildingsList);
+         System.out.println("->payDay");
+        turnBuildings(this.buildingsList);
+         System.out.println("->buildings");
         for(int i=0;i<playersList.size();i++){
             //TODO działania dla graczy;
         }
         for(int i=0;i<aiplayersList.size();i++){
             //TODO działania dla graczy AI;
+            System.out.println("------>Działania gracza ai["+i+"]");
             aiplayersList.get(i).makeADecision(unitsList, buildingsList,this.mapXCells,this.mapYCells,this);
         }
 
@@ -626,8 +855,13 @@ public class TiledMapStage extends Stage {
      */
     public void turnPayday(ArrayList<TileBuildings> buildingsList){
         //TODO - dodawanie zlota i jedzenia za kazdy tile
+         System.out.println("-->Rozmiar: buildingsList: "+buildingsList.size());
         for(TileBuildings buildingsL: buildingsList){
-           if(buildingsL.playerColor == "RED"){
+                    System.out.println("-->Kolor:"+buildingsL.playerColor+".");
+
+            if(buildingsL.playerColor.equals(new String("RED"))){
+                        System.out.println("--->Rozmiar: buildingsList dla RED: ");
+
             playersList.get(0).gold += buildingsL.dayGold;
             playersList.get(0).food += buildingsL.dayFood;
             playersList.get(0).techpoints += buildingsL.dayTechPoints;
@@ -635,6 +869,7 @@ public class TiledMapStage extends Stage {
             gameHUDInputProcessor.addFood(buildingsL.dayFood);
             gameHUDInputProcessor.addtechPoints(buildingsL.dayTechPoints);
             techHUDInputProcessor.updateTech(buildingsL.dayTechPoints);
+           
             if(techHUDInputProcessor.technology.get(0) == true && buildingsL == buildingsList.get(0))
             {
                 playersList.get(0).gold += buildingsL.dayGold;
@@ -657,12 +892,18 @@ public class TiledMapStage extends Stage {
     public void turnUnits(ArrayList<Units> unitsList){
         //TODO - reset punktów ruchu
         for(Units unitsL: unitsList){
+             System.out.println("-->Reset movement");
             unitsL.move =1;
         }
     }
+
+    /**
+     *
+     * @param buildingsList
+     */
     public void turnBuildings(ArrayList<TileBuildings> buildingsList){
         for(TileBuildings buildingsL: buildingsList){
-            if(buildingsL.textureName=="farm" || buildingsL.textureName == "craft"){
+            if(buildingsL.textureName.equals(new String("farm")) || buildingsL.textureName.equals(new String("craft"))){
                 if(buildingsL.HP<40&& buildingsL.HP>=38){
                     buildingsL.HP = 40;
                     buildingsL.updateFillBar(buildingsL.HP/buildingsL.maxHP);
@@ -713,7 +954,7 @@ public class TiledMapStage extends Stage {
      */
     public TileBuildings containTileBuildingObject(Units unit, String newBuildingType){
         for (int i=0;i<buildingsList.size();i++) {
-         if(buildingsList.get(i).q == unit.q && buildingsList.get(i).r == unit.r && buildingsList.get(i).s == unit.s && buildingsList.get(i).textureName == newBuildingType){
+         if(buildingsList.get(i).q == unit.q && buildingsList.get(i).r == unit.r && buildingsList.get(i).s == unit.s && buildingsList.get(i).textureName.equals(new String(newBuildingType))){
 
         return buildingsList.get(i);
         }
@@ -721,11 +962,17 @@ public class TiledMapStage extends Stage {
         return null;
     }
 
+    /**
+     *
+     * @param targetHex
+     * @param playerColor
+     * @return
+     */
     public TileBuildings containTileEnemyBuildingObject(Hex targetHex, String playerColor){
         //System.out.println("Rozmiar buildingsList: " + buildingsList.size());
         for(int i=0;i<buildingsList.size();i++)
         {
-            if(buildingsList.get(i).q == targetHex.q && buildingsList.get(i).r == targetHex.r && buildingsList.get(i).s == targetHex.s && playerColor != buildingsList.get(i).playerColor){
+            if(buildingsList.get(i).q == targetHex.q && buildingsList.get(i).r == targetHex.r && buildingsList.get(i).s == targetHex.s && !playerColor.equals(new String(buildingsList.get(i).playerColor))){
                 return buildingsList.get(i); // enemyBuilding
             }
         }
@@ -740,7 +987,7 @@ public class TiledMapStage extends Stage {
     public boolean containTileBuilding(Units unit, String newBuildingType){
 
         for (int i=0;i<buildingsList.size();i++) {
-           if(buildingsList.get(i).q == unit.q && buildingsList.get(i).r == unit.r && buildingsList.get(i).s == unit.s && buildingsList.get(i).textureName == newBuildingType){
+           if(buildingsList.get(i).q == unit.q && buildingsList.get(i).r == unit.r && buildingsList.get(i).s == unit.s && buildingsList.get(i).textureName.equals(newBuildingType)){
 
                return true;
            }
@@ -748,10 +995,16 @@ public class TiledMapStage extends Stage {
         return false;
     }
     
+    /**
+     *
+     * @param hex
+     * @param newBuildingType
+     * @return
+     */
     public boolean containTileBuilding(Hex hex, String newBuildingType){
 
         for (int i=0;i<buildingsList.size();i++) {
-           if(buildingsList.get(i).q == hex.q && buildingsList.get(i).r == hex.r && buildingsList.get(i).s == hex.s && buildingsList.get(i).textureName == newBuildingType){
+           if(buildingsList.get(i).q == hex.q && buildingsList.get(i).r == hex.r && buildingsList.get(i).s == hex.s && buildingsList.get(i).textureName.equals(newBuildingType)){
 
                return true;
            }
@@ -770,7 +1023,7 @@ public class TiledMapStage extends Stage {
         for(int i=0;i<unitsList.size();i++)
         {
         //   System.out.println("********************if("+unitsList.get(i).q + " == "+ targetHex.q+" && " +unitsList.get(i).r + " == "+ targetHex.r + " && "+unitsList.get(i).s + " == "+ targetHex.s+ " && " + playerColor + " != "+unitsList.get(i).playerColor);
-            if(unitsList.get(i).q == targetHex.q && unitsList.get(i).r == targetHex.r && unitsList.get(i).s == targetHex.s && playerColor != unitsList.get(i).playerColor){
+            if(unitsList.get(i).q == targetHex.q && unitsList.get(i).r == targetHex.r && unitsList.get(i).s == targetHex.s && !playerColor.equals(unitsList.get(i).playerColor)){
              System.out.println("//// Zawiera enemyUnit \\\\\"");
                 return unitsList.get(i); // enemyUnit
             }
@@ -787,7 +1040,7 @@ public class TiledMapStage extends Stage {
     public Units containTileUnit(Hex targetHex, String playerColor){
         for(int i=0;i<unitsList.size();i++)
         {
-            if(unitsList.get(i).q == targetHex.q && unitsList.get(i).r == targetHex.r && unitsList.get(i).s == targetHex.s && playerColor == unitsList.get(i).playerColor){
+            if(unitsList.get(i).q == targetHex.q && unitsList.get(i).r == targetHex.r && unitsList.get(i).s == targetHex.s && playerColor.equals(unitsList.get(i).playerColor)){
                 return unitsList.get(i); // allyUnit
             }
         }
@@ -874,7 +1127,7 @@ public class TiledMapStage extends Stage {
                System.out.println("Liczba buttonów: " + buttonUnitsMoveList.size()+"Usuwany index: "+indexUnitToKill);
                //System.out.println("Index aktora buttonMove: " + stage.getActors().indexOf(buttonUnitsMoveList.get(indexUnitToKill), true));
               // System.out.println("Index aktora buttonMove: " + stage.getActors().size);
-               if(unitsList.get(indexUnitToKill).playerColor == "RED")
+               if(unitsList.get(indexUnitToKill).playerColor.equals(new String("RED")))
                {
                     stage.getActors().removeIndex(stage.getActors().indexOf(buttonUnitsCraftList.get(indexUnitToKill), true));
                     stage.getActors().removeIndex(stage.getActors().indexOf(buttonUnitsFarmList.get(indexUnitToKill), true));
@@ -934,6 +1187,13 @@ public class TiledMapStage extends Stage {
         killCalculation(unitAttack, unitAttacked, attackedValue);
 
     }
+
+    /**
+     *
+     * @param unit
+     * @param buildingAttacked
+     * @param attackVal
+     */
     public void conquerCalculation(Units unit, TileBuildings buildingAttacked, int attackVal){
         int tileID = buildingsList.indexOf(buildingAttacked);
         if(attackVal>buildingAttacked.HP)
@@ -948,6 +1208,11 @@ public class TiledMapStage extends Stage {
         }
     }
 
+    /**
+     *
+     * @param unitAttack
+     * @param buildingAttacked
+     */
     public void attackTile(Units unitAttack, TileBuildings buildingAttacked){
         int attackValue = unitAttack.meleeUnits+unitAttack.rangeUnits+4*unitAttack.specialUnits;
         conquerCalculation(unitAttack, buildingAttacked, attackValue);
@@ -956,6 +1221,7 @@ public class TiledMapStage extends Stage {
      *
      * @param selectedID
      * @param hexCompare
+     * @param playerColor
      */
     public void moveUnit(int selectedID, Hex hexCompare, String playerColor) {
        // System.out.println("Rozmiar HexNeighbor: "+hexNeighbors.size());
@@ -1070,6 +1336,13 @@ public class TiledMapStage extends Stage {
          }
     }
     
+    /**
+     *
+     * @param q
+     * @param r
+     * @param s
+     * @return
+     */
     public ArrayList<OffsetCoord> getNeighbors(int q, int r, int s){
         ArrayList<OffsetCoord> allVisible = new ArrayList<OffsetCoord>();
         Hex checkVisible = null;
@@ -1102,9 +1375,19 @@ public class TiledMapStage extends Stage {
         }*/
         return allVisible;
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<OffsetCoord> returnInvisible(){
         return allInvisible;
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<OffsetCoord> getAllVisible(){
         ArrayList<OffsetCoord> allVisibleOC = new ArrayList<OffsetCoord>();
         ArrayList<OffsetCoord> allVisibleSublist = new ArrayList<OffsetCoord>();
@@ -1131,10 +1414,12 @@ public class TiledMapStage extends Stage {
                 //allVisibleOC.addAll(getNeighbors(buildingsList.get(i).q,buildingsList.get(i).r,buildingsList.get(i).s));
                 for(int j=0;j<allVisibleSublist.size();j++)
                 {
-                    if(!allVisibleOC.contains(allVisibleSublist.get(j)))
+                    //if(!allVisibleOC.contains(allVisibleSublist.get(j)))
+                    if(!eqOffset(allVisibleOC, allVisibleSublist.get(j)))
                     {
+                        
                         allVisibleOC.add(allVisibleSublist.get(j));
-                       // System.out.println("Dodaję: ("+allVisibleSublist.get(j).col+", "+allVisibleSublist.get(j).row+")");
+                        System.out.println("Dodaję: ("+allVisibleSublist.get(j).col+", "+allVisibleSublist.get(j).row+")");
                         
                         
                     }
@@ -1171,11 +1456,11 @@ public class TiledMapStage extends Stage {
             }   
              
         }
-       /* System.out.println("Rozmiar allVisibleOC: "+allVisibleOC.size());
+        System.out.println("Rozmiar allVisibleOC: "+allVisibleOC.size());
         for(int i=0;i<allVisibleOC.size();i++)
         {
             System.out.println("**"+ i+" col: "+allVisibleOC.get(i).col + "  row: "+allVisibleOC.get(i).row);
-        }*/
+        }
         return allVisibleOC;        
     }
     
@@ -1374,7 +1659,7 @@ public class TiledMapStage extends Stage {
 
             for(int i=0;i< unitsList.size();i++){
                // System.out.println("I: " + i);
-                //System.out.println("Rozmiar unitsList: " + unitsList.size());
+               // System.out.println("Rozmiar unitsList: " + unitsList.size());
                if(i==2){
                  //  System.out.print("hexPixArr["+qoffsetFromCube(OffsetCoord.ODD,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).col+"]");
                   //System.out.print("["+1+qoffsetFromCube(OffsetCoord.ODD,new Hex(unitsList.get(i).q,unitsList.get(i).r,unitsList.get(i).s)).row + "]");

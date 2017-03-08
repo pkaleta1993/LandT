@@ -31,13 +31,13 @@ public class TechHUD {
     private LandTerrorGame game;
     protected Skin skin;
     private TextureAtlas atlas;
-    public  ImageButton buttonDouble, buttonBuildings, buttonUnits;
+    public  ImageButton buttonDouble, buttonBuildings, buttonUnits, buttonSave;
     public Stage stage;
     private Viewport viewport;
     public float techPoints;
     public Table table;
-    public TechHUD(ArrayList<Boolean> tech){
-    this.techPoints = 0;
+    public TechHUD(ArrayList<Boolean> tech, float techP){
+    this.techPoints = techP;
     this.technology = tech;
      game = new LandTerrorGame();
     viewport = new FitViewport(game.WIDTH*2, game.HEIGHT*2, new OrthographicCamera());
@@ -50,6 +50,8 @@ public class TechHUD {
     buttonDouble.setSize(Gdx.graphics.getWidth()/30f, Gdx.graphics.getWidth()/30f);
     buttonBuildings.setSize(Gdx.graphics.getWidth()/30f, Gdx.graphics.getWidth()/30f);
     buttonUnits.setSize(Gdx.graphics.getWidth()/30f, Gdx.graphics.getWidth()/30f);
+    buttonSave = new ImageButton(skin, "save");
+    buttonSave.setSize(Gdx.graphics.getWidth()/30f, Gdx.graphics.getWidth()/30f);
     /*
      buttonBuildings.addListener(new ClickListener(){
 
@@ -77,17 +79,28 @@ public class TechHUD {
     table.add(buttonBuildings);
     table.row();
     table.add(buttonUnits);
+    table.row();
+    table.row().expand(0,10);
+    
+    table.add(buttonSave);
    // table.setSize(50,150);
     table.setWidth(50);
     table.setHeight(150);
     table.setX(Gdx.graphics.getWidth()-table.getWidth()-10);
     table.setY(-100);
     stage.addActor(table);
+    checkOnLoad();
+    
     }
     public float getTech(){
     return this.techPoints;
     }
     
+    public void checkOnLoad(){
+        if(this.technology.get(0) == true) deleteTechnology(this.buttonDouble);
+        if(this.technology.get(1) == true) deleteTechnology(this.buttonBuildings);
+        if(this.technology.get(2) == true) deleteTechnology(this.buttonUnits);
+    }
     public void updateTech(float techPoints){
         this.techPoints += techPoints;
     }

@@ -4,6 +4,10 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
         
         imageUp: double
     }
+	save: {
+	
+		imageUp: save
+	}
 	buildings: {
         , 
         imageUp: buildings

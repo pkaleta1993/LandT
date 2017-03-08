@@ -8,6 +8,7 @@ package com.pk.ltgame.scr;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -89,6 +90,7 @@ public class MenuScreen extends AbstractScreen{
 
         //Create buttons
         TextButton playButton = new TextButton("Play", skin,"container_gold");
+        TextButton loadButton = new TextButton("Continue", skin,"container_gold");
         TextButton optionsButton = new TextButton("Options", skin,"container_gold");
        TextButton exitButton = new TextButton("Exit", skin,"container_gold");
 
@@ -101,6 +103,17 @@ public class MenuScreen extends AbstractScreen{
 // game.setScreen(new MenuScreen(game));
             }
         });
+        
+         loadButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
+               FileHandle save = Gdx.files.internal("data/save");
+              if(save.exists()){
+                   game.setScreen(new GameScreen(game, save));            
+               }
+            }
+        });
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -108,11 +121,14 @@ public class MenuScreen extends AbstractScreen{
             }
         });
 playButton.setWidth(200);
+loadButton.setWidth(200);
 optionsButton.setWidth(200);
 exitButton.setWidth(200);
  mainTable.setFillParent(true);
         //Add buttons to table
         mainTable.add(playButton).width(200);
+        mainTable.row();
+        mainTable.add(loadButton).width(200);
         mainTable.row();
         mainTable.add(optionsButton).width(200);
         mainTable.row();
