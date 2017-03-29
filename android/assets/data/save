@@ -1,15 +1,30 @@
 <root>
-	<GameHUD playerColor="RED" gold="55" food="101" techPoints="1.1000003" turn="22"/>
-	<HumanPlayer color="RED" gold="55" food="101" techpoints="2.1000001" turn="1" race="Humans" tech1="true" tech2="false" tech3="false"/>
-	<AIPlayer color="BLUE" gold="600" food="177" techpoints="2.1000001" turn="1" race="Humans"/>
-	<TileBuildings id="0" q="0" r="3" s="-3" maxHP="100" HP="100.0" dayGold="10" dayFood="4" dayTechPoints="0.1" playerColor="RED" textureName="castle" race="Humans"/>
-	<TileBuildings id="1" q="3" r="0" s="-3" maxHP="100" HP="100.0" dayGold="10" dayFood="4" dayTechPoints="0.1" playerColor="BLUE" textureName="castle" race="Humans"/>
-	<TileBuildings id="2" q="3" r="-2" s="-1" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="RED" textureName="farm" race="Humans"/>
-	<TileBuildings id="3" q="3" r="1" s="-4" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Humans"/>
-	<TileBuildings id="4" q="1" r="1" s="-2" maxHP="40" HP="32.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Humans"/>
-	<TileBuildings id="5" q="2" r="1" s="-3" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Humans"/>
-	<TileBuildings id="6" q="1" r="0" s="-1" maxHP="40" HP="26.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Humans"/>
-	<TileBuildings id="7" q="3" r="-1" s="-2" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Humans"/>
-	<TileBuildings id="8" q="2" r="0" s="-2" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Humans"/>
-	<Units id="0" q="1" r="2" s="-3" meleeUnits="3" rangeUnits="1" specialUnits="14" move="1.0" playerColor="RED"/>
+	<GameHUD playerColor="RED" gold="795" food="317" techPoints="2.3999999" turn="25"/>
+	<HumanPlayer color="RED" gold="795" food="317" techpoints="2.3999999" turn="1" race="Demony" tech1="false" tech2="false" tech3="false"/>
+	<AIPlayer color="BLUE" gold="1235" food="331" techpoints="2.3999999" turn="1" race="Ludzie"/>
+	<TileBuildings id="0" q="0" r="3" s="-3" maxHP="100" HP="100.0" dayGold="10" dayFood="4" dayTechPoints="0.1" playerColor="RED" textureName="castle" race="Demony"/>
+	<TileBuildings id="1" q="3" r="-2" s="-1" maxHP="100" HP="100.0" dayGold="10" dayFood="4" dayTechPoints="0.1" playerColor="BLUE" textureName="castle" race="Ludzie"/>
+	<TileBuildings id="2" q="3" r="0" s="-3" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="3" q="0" r="2" s="-2" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="RED" textureName="farm" race="Demony"/>
+	<TileBuildings id="4" q="1" r="2" s="-3" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="RED" textureName="farm" race="Demony"/>
+	<TileBuildings id="5" q="5" r="0" s="-5" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="6" q="1" r="1" s="-2" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="RED" textureName="farm" race="Demony"/>
+	<TileBuildings id="7" q="5" r="-1" s="-4" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="8" q="4" r="1" s="-5" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="9" q="2" r="0" s="-2" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="RED" textureName="craft" race="Demony"/>
+	<TileBuildings id="10" q="5" r="-2" s="-3" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="11" q="4" r="0" s="-4" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="12" q="2" r="1" s="-3" maxHP="40" HP="22.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="13" q="5" r="-3" s="-2" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="14" q="4" r="-1" s="-3" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="15" q="1" r="0" s="-1" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="RED" textureName="craft" race="Demony"/>
+	<TileBuildings id="16" q="4" r="-2" s="-2" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="17" q="3" r="-1" s="-2" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="18" q="2" r="-1" s="-1" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="19" q="1" r="-1" s="0" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="20" q="3" r="1" s="-4" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<TileBuildings id="21" q="0" r="0" s="0" maxHP="40" HP="40.0" dayGold="5" dayFood="3" dayTechPoints="0.0" playerColor="BLUE" textureName="farm" race="Ludzie"/>
+	<TileBuildings id="22" q="0" r="1" s="-1" maxHP="40" HP="40.0" dayGold="10" dayFood="2" dayTechPoints="0.0" playerColor="BLUE" textureName="craft" race="Ludzie"/>
+	<Units id="2" q="3" r="1" s="-4" meleeUnits="2" rangeUnits="0" specialUnits="4" move="1.0" playerColor="BLUE" race="Ludzie"/>
+	<Units id="3" q="0" r="1" s="-1" meleeUnits="3" rangeUnits="1" specialUnits="1" move="1.0" playerColor="BLUE" race="Ludzie"/>
 </root>

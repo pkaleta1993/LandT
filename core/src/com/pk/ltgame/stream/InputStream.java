@@ -1,27 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.stream;
 
 import com.pk.ltgame.map.TiledMapStage;
 
 /**
- *
+ * Klasa do przekazywania współrzędnych.
  * @author pkale
  */
 public class InputStream {
+    
     final TiledMapStage tiledMS = new TiledMapStage();
 
     /**
-     *
-     * @param x
-     * @param y
+     * Wyślij współrzędne.
+     * @param x Współrzędna x.
+     * @param y Współrzędna y.
      */
     public void postMouseClick(double x, double y)
     {
-        
         tiledMS.mouseClickToHex(x, y);
     }
 }

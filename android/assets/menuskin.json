@@ -9,7 +9,7 @@
 
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
         default: { font: default, fontColor: white }
-        container_gold: { down: gold, up: goldclicked, disabled: container_blue, font: default, fontColor: white }
-        container_gold_small: { down: container_gold, up: container_blue, disabled: container_blue, font: default, fontColor: white }
+        container_green: { down: green, up: greenclicked, disabled: greenclicked, font: default, fontColor: white }
+        container_gold_small: { down: green, up: greenclicked, disabled: greenclicked, font: default, fontColor: white }
     }
 }

@@ -1,21 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.hex;
 
 /**
- *
+ * Klasa pomocniczna do trzymania koordynatów.
  * @author pkale
  */
 public class Point
 {
 
     /**
+     * Wartość x obiektu.
+     */
+    public final double x;
+
+    /**
+     * Wartośc y obiektu.
+     */
+    public final double y;
+    
+    /**
      *
-     * @param x
-     * @param y
+     * @param x Położenie X.
+     * @param y Położenie Y
      */
     public Point(double x, double y)
     {
@@ -23,13 +28,4 @@ public class Point
         this.y = y;
     }
 
-    /**
-     *
-     */
-    public final double x;
-
-    /**
-     *
-     */
-    public final double y;
 }

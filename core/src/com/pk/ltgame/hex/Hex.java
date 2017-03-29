@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.hex;
 
 import java.util.ArrayList;
 
 /**
- *
+ * Klasa odpowiadająca za operację na polach typu Hex.
  * @author pkale
  */
 public class Hex
@@ -16,9 +11,9 @@ public class Hex
 
     /**
      *
-     * @param q
-     * @param r
-     * @param s
+     * @param q Parametr q.
+     * @param r Parametr r.
+     * @param s Parametr s.
      */
     public Hex(int q, int r, int s)
     {
@@ -28,25 +23,25 @@ public class Hex
     }
 
     /**
-     *
+     * Wartość q obiektu.
      */
     public final int q;
 
     /**
-     *
+     * Wartość r obiektu.
      */
     public final int r;
 
     /**
-     *
+     * Wartość s obiektu.
      */
     public final int s;
 
     /**
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a - Obiekt Hex.
+     * @param b - Obiekt Hex.
+     * @return Nowy Hex o dodanych do a koordynatach b.
      */
     static public Hex add(Hex a, Hex b)
     {
@@ -55,87 +50,63 @@ public class Hex
 
     /**
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a - Obiekt Hex.
+     * @param b - Obiekt Hex.
+     * @return Nowy Hex o odjętych od a koordynatach b.
      */
-    static public Hex subtract(Hex a, Hex b)
+    static public Hex sub(Hex a, Hex b)
     {
         return new Hex(a.q - b.q, a.r - b.r, a.s - b.s);
     }
 
+    
+
+    /**
+     * Lista kierunków(Każdy obiekt stanowi wartości, które dodane do danego obiektu Hex, dadzą Hexy sąsiednie).
+     */
+    static public ArrayList<Hex> dir = new ArrayList<Hex>(){{add(new Hex(1, 0, -1)); add(new Hex(1, -1, 0)); add(new Hex(0, -1, 1)); add(new Hex(-1, 0, 1)); add(new Hex(-1, 1, 0)); add(new Hex(0, 1, -1));}};
+
     /**
      *
-     * @param a
-     * @param k
-     * @return
+     * @param dir Id obiektu na liście kierunków - od 0 do 5.
+     * @return Koordynaty określonego kierunku.
      */
-    static public Hex scale(Hex a, int k)
+    static public Hex getDir(int dir)
     {
-        return new Hex(a.q * k, a.r * k, a.s * k);
+        return Hex.dir.get(dir);
     }
 
     /**
      *
+     * @param hex Hex bazowy.
+     * @param dir Koordynaty kierunku.
+     * @return Sąsiedni hex o określonym do bazy kierunku.
      */
-    static public ArrayList<Hex> directions = new ArrayList<Hex>(){{add(new Hex(1, 0, -1)); add(new Hex(1, -1, 0)); add(new Hex(0, -1, 1)); add(new Hex(-1, 0, 1)); add(new Hex(-1, 1, 0)); add(new Hex(0, 1, -1));}};
-
-    /**
-     *
-     * @param direction
-     * @return
-     */
-    static public Hex direction(int direction)
+    static public Hex neighbor(Hex hex, int dir)
     {
-        return Hex.directions.get(direction);
+        return Hex.add(hex, Hex.getDir(dir));
     }
 
+    
     /**
      *
-     * @param hex
-     * @param direction
-     * @return
+     * @param hex Obiekt Hex.
+     * @return Suma wartości abolutnych koordynatów(|[variable]|).
      */
-    static public Hex neighbor(Hex hex, int direction)
-    {
-        return Hex.add(hex, Hex.direction(direction));
-    }
-
-    /**
-     *
-     */
-    static public ArrayList<Hex> diagonals = new ArrayList<Hex>(){{add(new Hex(2, -1, -1)); add(new Hex(1, -2, 1)); add(new Hex(-1, -1, 2)); add(new Hex(-2, 1, 1)); add(new Hex(-1, 2, -1)); add(new Hex(1, 1, -2));}};
-
-    /**
-     *
-     * @param hex
-     * @param direction
-     * @return
-     */
-    static public Hex diagonalNeighbor(Hex hex, int direction)
-    {
-        return Hex.add(hex, Hex.diagonals.get(direction));
-    }
-
-    /**
-     *
-     * @param hex
-     * @return
-     */
-    static public int length(Hex hex)
+    static public int len(Hex hex)
     {
         return (int)((Math.abs(hex.q) + Math.abs(hex.r) + Math.abs(hex.s)) / 2);
     }
 
     /**
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a Pierwszy punkt drogi.
+     * @param b Drugi punkt drogi.
+     * @return Odległość między punktami.
      */
-    static public int distance(Hex a, Hex b)
+    static public int dis(Hex a, Hex b)
     {
-        return Hex.length(Hex.subtract(a, b));
+        return Hex.len(Hex.sub(a, b));
     }
 
 }

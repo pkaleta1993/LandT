@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.objects;
 
 import com.badlogic.gdx.Gdx;
@@ -15,12 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.pk.ltgame.LandTerrorGame;
 
 /**
- *
+ * Klasa odpowiedzialna za tworzenie jednostek.
  * @author pkale
  */
 public class Units {
@@ -31,65 +23,75 @@ public class Units {
    
 
     /**
-     *
+     * Ilość punktów ruchu.
      */
     public float move;
 
     /**
-     *
+     * Koordynat q.
      */
     public int q,
 
     /**
-     *
+     * Koordynat r.
      */
     r,
 
     /**
-     *
+     * Koordynat s.
      */
     s;
     
 
     /**
-     *
+     * Kolor gracza.
      */
     public String playerColor;
     private Label unitsCount;
-    public int id;
-    /**
-     *
-     */
-    protected Stage stage;
 
     /**
-     *
+     * Identyfikator obiektu.
+     */
+    public int id;
+    /**
+     * Scena dla jednostki.
+     */
+    private Stage stage;
+
+    /**
+     * Ilość jednostek bliskiego zasięgu.
      */
     public int meleeUnits,
 
     /**
-     *
+     * Ilość jednostek dalekiego zasięgu.
      */
     rangeUnits,
 
     /**
-     *
+     * Ilość jednostek specjalnych.
      */
     specialUnits;
 
     /**
-     *
-     * @param id
-     * @param q
-     * @param r
-     * @param s
-     * @param meleeUnits
-     * @param rangeUnits
-     * @param specialUnits
-     * @param move
-     * @param playerColor
+     * Rasa jednostki.
      */
-    public Units(int id, int q, int r, int s, int meleeUnits, int rangeUnits, int specialUnits, float move, String playerColor){
+    public String race;
+    
+    /**
+     * Tworzenie jednostek.
+     * @param id Identyfikator obiektów.
+     * @param q Koordynat q.
+     * @param r Koordynat r.
+     * @param s Koordynat s.
+     * @param meleeUnits Ilość jednostek bliskiego zasięgu.
+     * @param rangeUnits Ilość jednostek dalekiego zasięgu.
+     * @param specialUnits Ilość jednostek specjalnych.
+     * @param move Ilość punktów ruchu.
+     * @param playerColor Kolor gracza.
+     * @param race Rasa gracza do którego jednostka należy. 
+     */
+    public Units(int id, int q, int r, int s, int meleeUnits, int rangeUnits, int specialUnits, float move, String playerColor, String race){
         this.id = id;
         this.q = q;
         this.r = r;
@@ -99,12 +101,12 @@ public class Units {
         this.specialUnits = specialUnits;
         this.move = move;
         this.playerColor = playerColor;
-        
+        this.race = race;
         create();
     };
     
     /**
-     *
+     * Tworzenie jednostki i etykiety dla ilość jednostek.
      */
     public void create () {
         
@@ -118,38 +120,32 @@ public class Units {
         labelColor.fill();
         unitsCount.getStyle().background = new Image(new Texture(labelColor)).getDrawable();
         stage.addActor(unitsCount);
-        System.out.println("Stworzono");
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * Renderowanie obiektu na określonych współrzędnych.
+     * @param x Miejsce na osi x.
+     * @param y Miejsce na osi y.
      */
     public void render (float x, float y) {
-      //  Gdx.gl.glClearColor(1, 0, 0, 1);
-    //    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
         batch.begin();
-      
-       batch.draw(img, x, y, Gdx.graphics.getWidth()/12f, Gdx.graphics.getHeight()/12f);
+        batch.draw(img, x, y, Gdx.graphics.getWidth()/12f, Gdx.graphics.getHeight()/12f);
         batch.end();
         unitsCount.setX(x);
         unitsCount.setY(y);
         stage.act();
-        stage.draw();
-        
+        stage.draw();   
     }
 
     /**
-     *
+     * Aktualizacja ilości jednostek.
      */
     public void updateArmy(){
         unitsCount.setText(String.format("%2d/%2d/%2d", meleeUnits, rangeUnits, specialUnits));
     }
 
     /**
-     *
+     * Zniszczenie obrazów.
      */
     public void dispose() {
     batch.dispose();

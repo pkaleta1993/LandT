@@ -1,35 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.hex;
 
 /**
- *
+ * Obiekt orientacji dla Hexów(flat/pointly). Powiiny być ustawiane przez odwrócenie x i y, czyli kąty powinny być odwrócone.
  * @author pkale
  */
 class Orientation
 {
-    public Orientation(double f0, double f1, double f2, double f3, double b0, double b1, double b2, double b3, double start_angle)
+    public Orientation(double matrixEl0, double matrixEl1, double matrixEl2, double matrixEl3, double invMatrixEl0, double invMatrixEl1, double invMatrixEl2, double invMatrixEl3, double beginAngle)
     {
-        this.f0 = f0;
-        this.f1 = f1;
-        this.f2 = f2;
-        this.f3 = f3;
-        this.b0 = b0;
-        this.b1 = b1;
-        this.b2 = b2;
-        this.b3 = b3;
-        this.start_angle = start_angle;
+        this.matrixElement0 = matrixEl0;
+        this.matrixElement1 = matrixEl1;
+        this.matrixElement2 = matrixEl2;
+        this.matrixElement3 = matrixEl3;
+        this.invertedMatrixElement0 = invMatrixEl0;
+        this.invertedMatrixElement1 = invMatrixEl1;
+        this.invertedMatrixElement2 = invMatrixEl2;
+        this.invertedMatrixElement3 = invMatrixEl3;
+        this.beginWithAngle = beginAngle;
     }
-    public final double f0;
-    public final double f1;
-    public final double f2;
-    public final double f3;
-    public final double b0;
-    public final double b1;
-    public final double b2;
-    public final double b3;
-    public final double start_angle;
+    public final double matrixElement0;
+    public final double matrixElement1;
+    public final double matrixElement2;
+    public final double matrixElement3;
+    public final double invertedMatrixElement0;
+    public final double invertedMatrixElement1;
+    public final double invertedMatrixElement2;
+    public final double invertedMatrixElement3;
+    public final double beginWithAngle;
 }

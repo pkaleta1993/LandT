@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pk.ltgame.map;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,8 +14,8 @@ public class TiledMapClickListener  extends ClickListener {
     private TiledMapActor actor;
 
     /**
-     *
-     * @param actor
+     * Tworzenie obsługi kliknięcia dla pól.
+     * @param actor Aktor dla pola.
      */
     public TiledMapClickListener(TiledMapActor actor) {
         this.actor = actor;
@@ -28,25 +23,16 @@ public class TiledMapClickListener  extends ClickListener {
     }
 
     /**
-     *
-     * @param event
-     * @param x
-     * @param y
+     * Obsługa kliknięcia.
+     * @param event Zdarzenie kliknięcia.
+     * @param x Parametr x.
+     * @param y Parametr y.
      */
     @Override
     public void clicked(InputEvent event, float x, float y) {
         
         if(actor!=null && actor.getCell() != null){
           
-                 //   System.out.println(this.actor.getWidth());
-                 //   System.out.println(this.actor.getX()+ " is X.");
-                  //  System.out.println(actor.getY() + " is Y.");
-                  //         System.out.println(actor.cell + " has been clicked.");
-
-                  //  System.out.println(actor.getZIndex()+ " is ZIndex.");
-                  //  System.out.println(actor.cell.getTile().getOffsetY() + " has been clicked.");
-                  //  System.out.println(actor.cell.getTile().getOffsetX() + " has been clicked.");
-       
         }
        
         

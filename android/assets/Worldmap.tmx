@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="hexagonal" renderorder="left-up" width="6" height="4" tilewidth="198" tileheight="172" hexsidelength="99" staggeraxis="x" staggerindex="odd" nextobjectid="1">
+ <tileset firstgid="1" name="hg" tilewidth="198" tileheight="172" tilecount="1" columns="1">
+  <image source="hg.png" width="198" height="172"/>
+ </tileset>
+ <layer name="Warstwa Kafelków 1" width="6" height="4">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAA
+  </data>
+ </layer>
+</map>
