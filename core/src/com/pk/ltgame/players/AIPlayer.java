@@ -114,11 +114,11 @@ public class AIPlayer extends Actor{
                     buyTileBuilding(unitsList.get(i), buildingsList);
                     buyUnitCalculations.set(oF, buyUnits(unitsList.get(i), mapX, mapY));
                     if(buyUnitCalculations.get(oF)>=1) {
-                        buyUnit(unitsList.get(i),mapX,mapY);
+                        recruitUnit(unitsList.get(i),mapX,mapY);
                         attackEnemyCalculations.set(oF, attackEnemy(unitsList.get(i),mapX,mapY));
                     }
                 } else {
-                    buyUnit(unitsList.get(i),mapX,mapY);
+                    recruitUnit(unitsList.get(i),mapX,mapY);
                     buyBuildingCalculations.set(oF, buyBuilding(unitsList.get(i), buildingsList));
                     attackEnemyCalculations.set(oF, attackEnemy(unitsList.get(i),mapX,mapY));
                     if(buyBuildingCalculations.get(oF)>=1){
@@ -151,7 +151,7 @@ public class AIPlayer extends Actor{
      * @param mapX Szerokość mapy.
      * @param mapY Wysokość mapy.
      */
-    private void buyUnit(Units thisUnit, int mapX, int mapY){
+    private void recruitUnit(Units thisUnit, int mapX, int mapY){
         neighborUnits.clear();
         int enemyUnitsPower = 0;
         int thisUnitPower = 0;
@@ -465,16 +465,16 @@ public class AIPlayer extends Actor{
             enemyUnitsPower = enemyUnitsPower + neighborUnits.get(i).meleeUnits + neighborUnits.get(i).rangeUnits + neighborUnits.get(i).specialUnits*3;
         }
         thisUnitPower += thisUnit.meleeUnits + thisUnit.rangeUnits + thisUnit.specialUnits*3;
-        if((thisUnitPower<enemyUnitsPower*0.85)) {
+        if((thisUnitPower<enemyUnitsPower*0.9)) {
             maxMelee = maxAbleToBuy(10,3);
             maxRange = maxAbleToBuy(15,2);
             maxSpecial = maxAbleToBuy(30,8);
-            if(maxMelee >=maxRange && maxMelee >=maxSpecial*4){
+            if(maxMelee >=maxRange && maxMelee >=maxSpecial*3.5){
                 if(recalcPower(enemyUnitsPower, thisUnitPower, maxMelee, 0, 0))
                 {
                     calculation += 1;
                 }
-                } else if(maxSpecial*4>=maxRange && maxSpecial*4>=maxMelee )
+                } else if(maxSpecial*3.5>=maxRange && maxSpecial*3.5>=maxMelee )
                 {
                     if(recalcPower(enemyUnitsPower, thisUnitPower, 0, 0, maxSpecial))
                     {
@@ -503,7 +503,7 @@ public class AIPlayer extends Actor{
  private boolean recalcPower(int enemyPower, int allyPower, int melee, int range, int special){
     allyPower+= melee+range+special*3;
     
-    return allyPower >= enemyPower*0.85;
+    return allyPower >= enemyPower*0.9;
  }
  
  /**
@@ -557,7 +557,7 @@ public class AIPlayer extends Actor{
     public int getSummaryGold(ArrayList<TileBuildings> buildingsList, String color){
         int goldSummary = 0;
         for(int i=0;i<buildingsList.size();i++){
-            if(buildingsList.get(i).playerColor.equals(new String(color)))
+            if(buildingsList.get(i).playerColor.equals(color))
             {
                 goldSummary += buildingsList.get(i).dayGold;
             }
@@ -575,7 +575,7 @@ public class AIPlayer extends Actor{
     public int getSummaryFood(ArrayList<TileBuildings> buildingsList, String color){
         int foodSummary = 0;
         for(int i=0;i<buildingsList.size();i++){
-            if(buildingsList.get(i).playerColor.equals(new String(color)))
+            if(buildingsList.get(i).playerColor.equals(color))
             {
                 foodSummary += buildingsList.get(i).dayFood;
             }
@@ -607,7 +607,7 @@ public class AIPlayer extends Actor{
                 calculation += (goldHumanSummary-goldSummary)*0.1;
             }
             if(foodSummary<=foodHumanSummary){
-                calculation += (foodHumanSummary-foodSummary)*0.25;
+                calculation += (foodHumanSummary-foodSummary)*0.2;
             }
         } else calculation -= 0.5;
         

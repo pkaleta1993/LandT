@@ -1,7 +1,7 @@
 package com.pk.ltgame.hex;
 
 /**
- * Obiekt orientacji dla Hexów(flat/pointly). Powiiny być ustawiane przez odwrócenie x i y, czyli kąty powinny być odwrócone.
+ * Obiekt orientacji dla Hexów(flat/pointly). Powinny być ustawiane przez odwrócenie x i y, czyli kąty powinny być odwrócone.
  * @author pkale
  */
 class Orientation

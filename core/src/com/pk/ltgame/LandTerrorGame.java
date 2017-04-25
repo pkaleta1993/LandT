@@ -36,14 +36,21 @@ public class LandTerrorGame extends Game {
 	
 	@Override
 	public void create () {
+            //tworzenie obiektu Music
             music = Gdx.audio.newMusic(Gdx.files.internal("Komiku-07-Theplacethatnevergetold.mp3"));
             p = Gdx.app.getPreferences("settings");
+            //ustawianie głośności na maksymalną(przedział 0-1)
             float musicVolume = 1f;
             musicVolume = p.getFloat("volume");
             boolean musicOff = false;
             musicOff = p.getBoolean("switch");
+            //ustawienie głośności na wartość zmiennej musicVolume
             setVolume(musicVolume);
+            //wyłączanie muzyki. True dla wyłączania, false dla włączania
             turnOffMusic(musicOff);
+            //włączenie zapętlania muzyki
+            music.setLooping(true);
+            //włączenie odtwarzania muzyki
             music.play();
             this.setScreen(new SplashScreen(this));
         
@@ -90,4 +97,10 @@ public class LandTerrorGame extends Game {
     public void setPaused(boolean paused) {
             this.paused = paused;
         }
+    
+    @Override
+    public void dispose(){
+        music.dispose();
+    }
 }
+

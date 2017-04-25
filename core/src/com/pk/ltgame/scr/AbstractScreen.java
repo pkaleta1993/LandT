@@ -48,7 +48,9 @@ public abstract class AbstractScreen implements Screen {
      * Stworzenie kamery na ekran.
      */
     private void createCamera() {
+        //stworzenie obiektu kamery izometrycznej
         camera = new OrthographicCamera();
+        //ustawienie kamery na rozdzielczość aplikacji i z osią y rosnącą w górę.
         camera.setToOrtho(false, LandTerrorGame.WIDTH, LandTerrorGame.HEIGHT);
     }
 

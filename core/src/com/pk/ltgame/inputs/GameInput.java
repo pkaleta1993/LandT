@@ -33,9 +33,10 @@ public class GameInput implements InputProcessor {
    public boolean keyTyped (char character) {
       return false;
    }
-
+   //rozszerzenia pustego ciała metody touchDown w interfejsie InputProcessor
     @Override
    public boolean touchDown (int x, int y, int pointer, int button) {
+        //
         if (button == Input.Buttons.LEFT) {
           postMC.postMouseClick(x, y);
           return true;     

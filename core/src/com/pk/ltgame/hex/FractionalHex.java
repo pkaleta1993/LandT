@@ -11,7 +11,7 @@ public class FractionalHex
 {
 
     /**
-     *
+     * Konstruktor FractionalHex
      * @param q Parametr q dla Fractional Hex.
      * @param r Parametr r dla Fractional Hex.
      * @param s Parametr s dla Fractional Hex.
@@ -39,7 +39,7 @@ public class FractionalHex
     public final double s;
 
     /**
-     *
+     * Zaokrąglanie koordynatów do Hex
      * @param h FractionalHex do zaokrąglania
      * @return Zaokrąglone koordynaty opakowane w klase Hex
      */

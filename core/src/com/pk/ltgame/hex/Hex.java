@@ -67,7 +67,7 @@ public class Hex
     static public ArrayList<Hex> dir = new ArrayList<Hex>(){{add(new Hex(1, 0, -1)); add(new Hex(1, -1, 0)); add(new Hex(0, -1, 1)); add(new Hex(-1, 0, 1)); add(new Hex(-1, 1, 0)); add(new Hex(0, 1, -1));}};
 
     /**
-     *
+     * Określa wybrany kierunek
      * @param dir Id obiektu na liście kierunków - od 0 do 5.
      * @return Koordynaty określonego kierunku.
      */
@@ -77,7 +77,7 @@ public class Hex
     }
 
     /**
-     *
+     * Obliczanie koordynatów pola sąsiedniego
      * @param hex Hex bazowy.
      * @param dir Koordynaty kierunku.
      * @return Sąsiedni hex o określonym do bazy kierunku.
@@ -89,7 +89,7 @@ public class Hex
 
     
     /**
-     *
+     * Obliczanie odległości pola od pola początkowego(0,0,0).
      * @param hex Obiekt Hex.
      * @return Suma wartości abolutnych koordynatów(|[variable]|).
      */
@@ -99,7 +99,7 @@ public class Hex
     }
 
     /**
-     *
+     * Określanie ilości pól z jednego pola do drugiego.
      * @param a Pierwszy punkt drogi.
      * @param b Drugi punkt drogi.
      * @return Odległość między punktami.

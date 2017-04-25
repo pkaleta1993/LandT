@@ -20,6 +20,7 @@ public class DesktopLauncher {
                 config.height = LandTerrorGame.HEIGHT;
                 config.width = LandTerrorGame.WIDTH;
                 config.resizable = false;
+         //       config.fullscreen = true;
                 new LwjglApplication(new LandTerrorGame(), config);
 	}
 }

@@ -66,12 +66,12 @@ public class SettingsScreen extends AbstractScreen{
         p = Gdx.app.getPreferences("settings");
         float volume =  p.getFloat("volume");
         boolean switchOff = p.getBoolean("switch");
-        labelMusic = new Label(String.format("%5s", "Music Volume: "), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        labelMusicSwitch = new Label(String.format("%5s", "Music Off: "), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        labelMusic = new Label(String.format("%5s", "Poziom glosnosci: "), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        labelMusicSwitch = new Label(String.format("%5s", "Wylacz muzyke: "), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         musicVolume = new Slider(0.1f, 1f, 0.1f, false, skin);
         musicSwitch = new CheckBox("", skin);
-        back = new TextButton("back", skin, "default");
-        save = new TextButton("save", skin, "default");
+        back = new TextButton("Cofnij", skin, "default");
+        save = new TextButton("Zapisz", skin, "default");
         back.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

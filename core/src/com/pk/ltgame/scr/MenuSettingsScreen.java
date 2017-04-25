@@ -53,11 +53,9 @@ public class MenuSettingsScreen extends AbstractScreen{
 
     @Override
     public void show() {
-        Table mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.top();
+       
         TextButton playButton = new TextButton("Zacznij gre z tymi ustawieniami", skin,"default");
-        TextButton backButton = new TextButton("Powrót", skin,"default");
+        TextButton backButton = new TextButton("Powrot", skin,"default");
         String[] values = new String[]{"Ludzie", "Nieumarli", "Demony"};
         final SelectBox<String> selectBox = new SelectBox<String>(skin);
         selectBox.setItems(values);
@@ -73,10 +71,17 @@ public class MenuSettingsScreen extends AbstractScreen{
                 game.setScreen(new MenuScreen(game)); 
             }
         });
+        Table mainTable = new Table();
+        //ustawienie rodzica tabeli na scenę i dopasowanie tabeli do rozmiaru sceny
+        mainTable.setFillParent(true);
+        //ustawienie położenie tabeli na górny środek sceny
+        mainTable.top();
+        //dodanie komórki z podanym elementem
         mainTable.add(playButton);
-        mainTable.row();
+        //dodanie wiersza
+        mainTable.row().padTop(10);
         mainTable.add(selectBox);
-        mainTable.row();
+        mainTable.row().padTop(10);
         mainTable.add(backButton);
         stage.addActor(mainTable);
     }
