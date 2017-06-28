@@ -16,11 +16,12 @@ public class DesktopLauncher {
      */
     public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+                System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
                 config.title = LandTerrorGame.GAME_NAME;
                 config.height = LandTerrorGame.HEIGHT;
                 config.width = LandTerrorGame.WIDTH;
-                config.resizable = false;
-         //       config.fullscreen = true;
+                //config.resizable = false;
+              //  config.fullscreen = true;
                 new LwjglApplication(new LandTerrorGame(), config);
 	}
 }

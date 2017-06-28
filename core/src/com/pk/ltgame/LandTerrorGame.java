@@ -21,7 +21,7 @@ public class LandTerrorGame extends Game {
     /**
      * Szerokość okna aplikacji.
      */
-    public final static int WIDTH = 1024;
+    public final static int WIDTH = 1366;
     
     /**
      * Wysokość okna aplikacji.
@@ -37,7 +37,7 @@ public class LandTerrorGame extends Game {
 	@Override
 	public void create () {
             //tworzenie obiektu Music
-            music = Gdx.audio.newMusic(Gdx.files.internal("Komiku-07-Theplacethatnevergetold.mp3"));
+            music = Gdx.audio.newMusic(Gdx.files.internal("theme.mp3"));
             p = Gdx.app.getPreferences("settings");
             //ustawianie głośności na maksymalną(przedział 0-1)
             float musicVolume = 1f;
